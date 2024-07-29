@@ -1,8 +1,6 @@
 {
   "extends": [
-    "next",
     "next/core-web-vitals",
-    "next/typescript",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
@@ -11,6 +9,9 @@
     "plugin:storybook/recommended"
   ],
   "plugins": ["simple-import-sort", "import"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
