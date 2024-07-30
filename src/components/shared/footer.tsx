@@ -1,16 +1,55 @@
-import { Facebook, Instagram, Phone, Send, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, Send, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 import Logo from "@/public/images/Logo.png";
 
+interface INavLink {
+  href: string;
+  label: string;
+}
+
+const navLinks: INavLink[] = [
+  {
+    href: "/#learn",
+    label: "Belajar Online",
+  },
+  {
+    href: "/#audio",
+    label: "Audio Islami",
+  },
+  {
+    href: "/#produk",
+    label: "Produk Kami",
+  },
+];
+
+const helpLinks: INavLink[] = [
+  {
+    href: "/#syarat",
+    label: "Syarat & Ketentuan",
+  },
+  {
+    href: "/#kebijakan",
+    label: "Kebijakan Privasi",
+  },
+  {
+    href: "/#disclaimer",
+    label: "Disclaimer",
+  },
+  {
+    href: "/#hubungi",
+    label: "Hubungi Kami",
+  },
+];
+
 export const Footer = () => {
   return (
     <footer className="bg-[#3c3c3c] text-white">
-      <div className="container mx-auto py-14 xl:max-w-[1280px]">
-        <div className="flex justify-between">
-          <div>
+      <div className="mx-auto max-w-7xl px-8 py-14 xl:px-0">
+        <div className="flex flex-col justify-between md:flex-row">
+          <div className="pb-10">
             <Image src={Logo} alt="Logo perusahaan" width={100} height={100} className="pb-3" />
             <p className="pb-1 tracking-normal">إنا قوم أعزنا الله بالإسلام فلن نبتغي العزة بغيره</p>
             <p className="text-sm text-gray-400">Menukil kalam ulama, quran & hadist</p>
@@ -32,28 +71,40 @@ export const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="">
+
+          <div className="pb-5">
             <p className="pb-3">Program Kami :</p>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Belajar Online</div>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Audio Islami</div>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Produk Kami</div>
+            {navLinks.map((link) => (
+              <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div>
+
+          <div className="pb-5">
             <p className="pb-3">Panduan & Bantuan :</p>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Syarat & Ketentuan</div>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Kebijakan Privasi</div>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Disclaimer</div>
-            <div className="cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">Hubungi Kami</div>
+            {helpLinks.map((link) => (
+              <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div>
+
+          <div className="pb-5">
             <div className="pb-3">Kontak Kami :</div>
-            <p className="pb-2 text-sm text-gray-400">nukilansalaf@gmail.com</p>
-            <p className="pb-2 text-sm text-gray-400">+62-851-7233-1302</p>
+            <p className="flex gap-2 pb-2 text-sm text-gray-400">
+              <Mail size={20} />
+              nukilansalaf@gmail.com
+            </p>
+            <p className="flex gap-2 pb-2 text-sm text-gray-400">
+              <Phone size={20} />
+              +62-851-7233-1302
+            </p>
           </div>
         </div>
 
-        <div className="mt-14 flex justify-between border-t border-white/20 pt-2">
-          <p className="text-sm text-gray-400">&copy; 2022 Nukilan Salaf. All rights reserved.</p>
+        <div className="mt-2 flex justify-between border-t border-white/20 pt-2">
+          <p className="text-sm text-gray-400">Copyright © {new Date().getFullYear()} - All rights reserved</p>
           <p className="flex gap-1 text-sm text-gray-400">
             Developed by <p className="text-gray-50">Rizky Alam</p>
           </p>
