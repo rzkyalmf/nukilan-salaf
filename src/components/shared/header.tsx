@@ -31,7 +31,7 @@ export const Header = () => {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4 xl:px-0">
         <div>
           <Link href="/">
-            <Image src={Logo} alt="logo" className="w-24" placeholder="blur" priority={true} width={100} height={100} />
+            <Image src={Logo} alt="logo" className="w-24" priority={true} width={100} height={100} />
           </Link>
         </div>
 
@@ -45,7 +45,6 @@ export const Header = () => {
 
         <div className="flex lg:hidden">
           <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5">
-            <span className="sr-only">Open main menu</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

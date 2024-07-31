@@ -4,12 +4,12 @@ import { Header } from "@/components/shared/header";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <main className="font-">
       <Header />
-      <main className="mx-auto flex items-center justify-center">
-        <FormContent />
-      </main>
+
+      <FormContent />
+
       <Footer />
-    </div>
+    </main>
   );
 }
