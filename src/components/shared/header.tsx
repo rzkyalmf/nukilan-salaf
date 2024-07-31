@@ -5,12 +5,12 @@ import React from "react";
 
 import Logo from "@/public/images/Logo.png";
 
-interface NavLink {
+interface INavLink {
   href: string;
   label: string;
 }
 
-const links: NavLink[] = [
+const links: INavLink[] = [
   {
     href: "/#learn",
     label: "Belajar Online",

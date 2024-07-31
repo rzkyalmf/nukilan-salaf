@@ -22,7 +22,7 @@ export const TextInput: Story = {
 
 export const PasswordInput: Story = {
   args: {
-    placeholder: "Input your Password",
+    placeholder: "Input your text",
     type: "password",
   },
 };

@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
   body {
     @apply font-medium tracking-tight;
@@ -26,5 +26,28 @@
   }
   h6 {
     @apply text-balance font-medium;
+  }
+}
+
+/* @layer components {
+  .btn-primary {
+    @apply rounded-md bg-gradient-to-r from-[#9F8864] to-[#7B6548] px-4 py-2 text-white shadow-sm transition-opacity duration-300 hover:opacity-90;
+  }
+
+  .label-text {
+    @apply text-sm font-normal text-[#C2B59B];
+  }
+
+  .input-field {
+    @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#9F8864] focus:ring focus:ring-[#9F8864] focus:ring-opacity-50;
+  }
+} */
+
+@layer utilities {
+  .gradient-ns {
+    @apply bg-gradient-to-br from-[#C2B59B] to-[#746C5B] bg-clip-text text-transparent;
+  }
+  .font-philosopher {
+    font-family: var(--font-philosopher), sans-serif;
   }
 }
