@@ -9,9 +9,9 @@ import { Textarea } from "./isomorphic/textarea";
 export const FormContent: React.FC = () => {
   return (
     <div className="m-32 mx-auto flex items-center justify-center">
-      <form className="w-[400px] space-y-4 rounded-xl border p-8">
+      <form className="w-[400px] space-y-4 rounded-xl border p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
         <div>
-          <h2 className="gradient-ns font-philosopher text-center text-3xl font-medium tracking-normal">Nukilan Salaf</h2>
+          <h2 className="gradient-ns font-philosopher text-center font-medium tracking-tight">Nukilan Salaf</h2>
           <p className="mb-6 text-center text-sm font-light tracking-normal text-gray-400">Masukan konten nukilan dibawah !</p>
         </div>
 
