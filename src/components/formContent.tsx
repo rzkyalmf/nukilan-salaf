@@ -4,7 +4,7 @@ import { Files, UserRoundCheck } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-import Logo from "@/public/images/Logo.png";
+import Logo2 from "@/public/images/Logo2.png";
 
 import { Button } from "./isomorphic/button";
 import { Input } from "./isomorphic/input";
@@ -24,8 +24,8 @@ export const FormContent: React.FC = () => {
   };
 
   return (
-    <div className="mx-72 my-32 flex items-center justify-center">
-      <form className="mx-auto w-[400px] space-y-4 rounded-xl border p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
+    <div className="my-16 flex flex-col items-center justify-center gap-12 lg:mx-64 lg:my-56 lg:flex-row">
+      <form className="mx-auto w-[400px] flex-shrink-0 space-y-4 rounded-xl border p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
         <div>
           <h2 className="gradient-ns font-philosopher text-center font-medium tracking-tight">Nukilan Salaf</h2>
           <p className="mb-6 text-center text-sm font-light tracking-normal text-gray-400">Masukan konten nukilan dibawah !</p>
@@ -63,10 +63,10 @@ export const FormContent: React.FC = () => {
         </div>
       </form>
 
-      <div className="flex min-h-[700px] w-[560px] flex-col items-center justify-between rounded-xl border bg-[#262626] px-16 py-8 text-center text-white shadow-[#C2B59B] transition duration-1000 hover:rotate-1 hover:shadow-lg">
-        <Image src={Logo} alt="logo" className="mb-8 w-16" priority={true} width={100} height={100} />
+      <div className="mx-auto flex min-h-[700px] w-[560px] flex-shrink-0 flex-col items-center justify-center rounded-xl border bg-[#262626] px-16 py-8 text-center text-white shadow-[#C2B59B] transition duration-1000 hover:rotate-1 hover:shadow-lg">
+        <Image src={Logo2} alt="logo" className="mb-8 w-16" priority={true} width={100} height={100} />
 
-        <div className="flex flex-grow flex-col justify-center pb-3">
+        <div className="flex flex-grow flex-col justify-center pb-4">
           <h1 className="gradient-ns font-philosopher mb-8 text-6xl"> {konten.title} </h1>
 
           {konten.author && (
