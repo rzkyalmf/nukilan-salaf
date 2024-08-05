@@ -28,14 +28,14 @@ const links: INavLink[] = [
 export const Header = () => {
   return (
     <header className="bg-[#3c3c3c] text-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4 xl:px-0">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between px-10 py-4">
         <div>
           <Link href="/">
             <Image src={Logo} alt="logo" className="w-24" priority={true} width={100} height={100} />
           </Link>
         </div>
 
-        <div className="hidden lg:flex lg:items-center lg:justify-center lg:gap-12">
+        <div className="hidden md:flex md:items-center md:justify-center md:gap-12">
           {links.map((link) => (
             <Link href={link.href} key={link.href} className="link link-hover flex items-center">
               {link.label} <ChevronDown className="ml-1 h-4 w-4" />
@@ -43,8 +43,8 @@ export const Header = () => {
           ))}
         </div>
 
-        <div className="flex lg:hidden">
-          <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5">
+        <div className="flex md:hidden">
+          <button type="button" className="rounded-md">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
