@@ -24,7 +24,7 @@ export const FormContent: React.FC = () => {
   };
 
   return (
-    <div className="my-16 flex flex-col items-center justify-center gap-12 lg:mx-64 lg:my-56 lg:flex-row">
+    <div className="my-16 flex flex-col items-center justify-center gap-12 lg:mx-96 lg:my-56 lg:flex-row">
       <form className="mx-auto w-[400px] flex-shrink-0 space-y-4 rounded-xl border p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
         <div>
           <h2 className="gradient-ns font-philosopher text-center font-medium tracking-tight">Nukilan Salaf</h2>
@@ -75,8 +75,7 @@ export const FormContent: React.FC = () => {
               {konten.author}
             </h6>
           )}
-
-          <h3 className="my-2 font-light"> {konten.content} </h3>
+          {konten.content && <h3 className="my-2 font-light"> &quot;{konten.content}&quot; </h3>}
           {konten.source && (
             <h6 className="flex items-center justify-center gap-2 text-[12px] font-extralight text-gray-300">
               <Files className="ml-1 h-5 w-5" />

@@ -1,6 +1,7 @@
 import { Quotes } from "@prisma/client";
 import React from "react";
 
+import { HeadlesUI } from "@/components/headlesui";
 import prisma from "@/utils/prisma";
 
 export default async function Page() {
@@ -18,6 +19,9 @@ export default async function Page() {
           </div>
         );
       })}
+      <div>
+        <HeadlesUI />
+      </div>
     </div>
   );
 }

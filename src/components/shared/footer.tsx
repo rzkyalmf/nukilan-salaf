@@ -103,7 +103,7 @@ export const Footer = () => {
       </div>
 
       <div className="mx-auto mt-8 flex max-w-[1280px] items-center justify-between border-t border-white/20 pt-6">
-        <p className="text-sm text-gray-400">Copyright © {new Date().getFullYear()} - All rights reserved</p>
+        <p className="text-sm text-gray-400">Copyright © 2022-{new Date().getFullYear()} - All rights reserved</p>
         <p className="flex gap-1 text-sm text-gray-400">
           Developed by <p className="text-gray-50">Rizky Alam</p>
         </p>
