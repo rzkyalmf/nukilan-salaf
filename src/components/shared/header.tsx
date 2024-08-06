@@ -8,6 +8,7 @@ import Logo from "@/public/images/Logo.png";
 interface INavLink {
   href: string;
   label: string;
+  subMenu?: INavLink[];
 }
 
 const links: INavLink[] = [
@@ -18,6 +19,10 @@ const links: INavLink[] = [
   {
     href: "/#audio",
     label: "Audio Islami",
+    subMenu: [
+      { label: "Kategori 1", href: "/produk/kategori-1" },
+      { label: "Kategori 2", href: "/produk/kategori-2" },
+    ],
   },
   {
     href: "/#produk",
@@ -37,8 +42,10 @@ export const Header = () => {
 
         <div className="hidden md:flex md:items-center md:justify-center md:gap-12">
           {links.map((link) => (
-            <Link href={link.href} key={link.href} className="link link-hover flex items-center">
-              {link.label} <ChevronDown className="ml-1 h-4 w-4" />
+            <Link href={link.href} key={link.href} className="group relative flex items-center px-2 py-1">
+              <span>{link.label}</span>
+              <ChevronDown className="ml-1 h-4 w-4" />
+              <span className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-[#C2B59B] transition-all duration-1000 ease-out group-hover:left-0 group-hover:w-full" />
             </Link>
           ))}
         </div>
