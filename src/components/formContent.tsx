@@ -24,8 +24,8 @@ export const FormContent: React.FC = () => {
   };
 
   return (
-    <div className="my-16 flex flex-col items-center justify-center gap-12 lg:mx-96 lg:my-56 lg:flex-row">
-      <form className="mx-auto w-[400px] flex-shrink-0 space-y-4 rounded-xl border p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
+    <div className="my-16 flex flex-col items-center justify-center gap-36 lg:mx-96 lg:my-56 lg:flex-row">
+      <form className="mx-auto w-[400px] flex-shrink-0 space-y-4 rounded-xl border bg-[#fffffe] p-8 shadow-[#C2B59B] transition duration-1000 hover:shadow-md">
         <div>
           <h2 className="gradient-ns font-philosopher text-center font-medium tracking-tight">Nukilan Salaf</h2>
           <p className="mb-6 text-center text-sm font-light tracking-normal text-gray-400">Masukan konten nukilan dibawah !</p>

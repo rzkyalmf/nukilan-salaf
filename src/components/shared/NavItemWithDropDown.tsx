@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LucideIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -12,6 +12,7 @@ interface ISimpleNavItem {
 export interface INavItemWithChildren {
   label: string;
   children?: ISimpleNavItem[];
+  icon?: LucideIcon;
 }
 
 export const NavItemWithDropdown: React.FC<{ item: INavItemWithChildren }> = ({ item }) => {
@@ -42,9 +43,10 @@ export const NavItemWithDropdown: React.FC<{ item: INavItemWithChildren }> = ({ 
   return (
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button className="group flex items-center px-2 py-1 text-white focus:outline-none">
+        {item.icon && <item.icon className="mr-2 h-5 w-5" />}
         {item.label}
         {item.children && <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />}
-        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#C2B59B] transition-all duration-300 ease-out group-hover:w-full" />
+        <span className="absolute bottom-0 left-0 h-0.5 w-0 rounded-lg bg-[#C2B59B] transition-all duration-300 ease-out group-hover:w-full" />
       </button>
 
       {item.children && isOpen && (
@@ -53,7 +55,7 @@ export const NavItemWithDropdown: React.FC<{ item: INavItemWithChildren }> = ({ 
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="flex flex-col py-1">
+          <div className="flex flex-col gap-3 py-3">
             {item.children.map((child) => (
               <Link key={child.href} href={child.href} className="px-4 py-2 text-gray-700 hover:bg-gray-100">
                 {child.label}

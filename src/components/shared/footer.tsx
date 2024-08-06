@@ -10,18 +10,56 @@ interface INavLink {
   label: string;
 }
 
-const navLinks: INavLink[] = [
+const belajarOnline: INavLink[] = [
   {
     href: "/#learn",
-    label: "Belajar Online",
+    label: "Belajar Islam Dari Dasar",
   },
   {
     href: "/#audio",
-    label: "Audio Islami",
+    label: "Belajar Qur’an Dari Dasar",
   },
   {
     href: "/#produk",
-    label: "Produk Kami",
+    label: "Belajar Bahasa Arab Dari Dasar",
+  },
+  {
+    href: "/#produk",
+    label: "Belajar Siroh Nabawi",
+  },
+  {
+    href: "/#produk",
+    label: "Belajar Thibbun Nabawi",
+  },
+];
+
+const audioIslami: INavLink[] = [
+  {
+    href: "/#learn",
+    label: "Audio Murattal",
+  },
+  {
+    href: "/#audio",
+    label: "Audio Kajian",
+  },
+];
+
+const produkKami: INavLink[] = [
+  {
+    href: "/#learn",
+    label: "Tanya Ustadz",
+  },
+  {
+    href: "/#audio",
+    label: "Umrah & Haji",
+  },
+  {
+    href: "/#audio",
+    label: "Kredit Syariah",
+  },
+  {
+    href: "/#audio",
+    label: "Parfum Arab",
   },
 ];
 
@@ -47,7 +85,7 @@ const helpLinks: INavLink[] = [
 export const Footer = () => {
   return (
     <footer className="bg-[#3c3c3c] px-10 py-20 text-white">
-      <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-10 md:flex-row">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-2 items-start justify-between gap-8 md:flex md:flex-row">
         <div>
           <Image src={Logo} alt="Logo perusahaan" width={100} height={100} className="pb-3" />
           <p className="pb-1 tracking-normal">إنا قوم أعزنا الله بالإسلام فلن نبتغي العزة بغيره</p>
@@ -72,8 +110,24 @@ export const Footer = () => {
         </div>
 
         <div>
-          <p className="pb-3">Program Kami :</p>
-          {navLinks.map((link) => (
+          <p className="pb-3">Belajar Online :</p>
+          {belajarOnline.map((link) => (
+            <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div>
+          <p className="pb-3">Produk Kami :</p>
+          {produkKami.map((link) => (
+            <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div>
+          <p className="pb-3">Audio Islami :</p>
+          {audioIslami.map((link) => (
             <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
               {link.label}
             </Link>
