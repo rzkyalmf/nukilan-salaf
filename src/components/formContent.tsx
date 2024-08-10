@@ -56,7 +56,7 @@ export const FormContent: React.FC = () => {
             <Button variant="secondary" size="md">
               Cancel
             </Button>
-            <Button variant="primary" size="md">
+            <Button variant="primary" size="md" type="button">
               Submit
             </Button>
           </div>

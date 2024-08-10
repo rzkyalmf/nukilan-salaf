@@ -1,4 +1,3 @@
-import { FormContent } from "@/components/formContent";
 import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
 
@@ -6,9 +5,7 @@ export default function Home() {
   return (
     <main className="">
       <Header />
-
-      <FormContent />
-
+      <div className="h-screen"></div>
       <Footer />
     </main>
   );
