@@ -5,12 +5,12 @@ import React from "react";
 
 import Logo from "@/public/images/Logo.png";
 
-interface INavLink {
+interface IFooterItem {
   href: string;
   label: string;
 }
 
-const belajarOnline: INavLink[] = [
+const belajarOnline: IFooterItem[] = [
   {
     href: "/#learn",
     label: "Belajar Islam Dari Dasar",
@@ -33,7 +33,7 @@ const belajarOnline: INavLink[] = [
   },
 ];
 
-const audioIslami: INavLink[] = [
+const audioIslami: IFooterItem[] = [
   {
     href: "/#learn",
     label: "Audio Murattal",
@@ -44,7 +44,7 @@ const audioIslami: INavLink[] = [
   },
 ];
 
-const produkKami: INavLink[] = [
+const produkKami: IFooterItem[] = [
   {
     href: "/#learn",
     label: "Tanya Ustadz",
@@ -63,7 +63,7 @@ const produkKami: INavLink[] = [
   },
 ];
 
-const helpLinks: INavLink[] = [
+const helpLinks: IFooterItem[] = [
   {
     href: "/#syarat",
     label: "Syarat & Ketentuan",
@@ -82,7 +82,7 @@ const helpLinks: INavLink[] = [
   },
 ];
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <footer className="bg-[#3c3c3c] px-10 py-20 text-white">
       <div className="mx-auto grid max-w-[1280px] grid-cols-2 items-start justify-between gap-8 md:flex md:flex-row">
@@ -111,24 +111,24 @@ export const Footer = () => {
 
         <div>
           <p className="pb-3">Belajar Online :</p>
-          {belajarOnline.map((link) => (
-            <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+          {belajarOnline.map((link, index) => (
+            <Link href={link.href} key={index} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
               {link.label}
             </Link>
           ))}
         </div>
         <div>
           <p className="pb-3">Produk Kami :</p>
-          {produkKami.map((link) => (
-            <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+          {produkKami.map((link, index) => (
+            <Link href={link.href} key={index} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
               {link.label}
             </Link>
           ))}
         </div>
         <div>
           <p className="pb-3">Audio Islami :</p>
-          {audioIslami.map((link) => (
-            <Link href={link.href} key={link.href} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
+          {audioIslami.map((link, index) => (
+            <Link href={link.href} key={index} className="flex cursor-pointer pb-2 text-sm text-gray-400 hover:text-gray-300">
               {link.label}
             </Link>
           ))}

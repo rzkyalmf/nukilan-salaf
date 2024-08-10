@@ -7,50 +7,6 @@ import React, { useCallback, useRef, useState } from "react";
 
 import Logo from "@/public/images/Logo.png";
 
-// interface IHeader {
-//   label: string;
-//   href: string;
-//   icon?: LucideIcon;
-// }
-
-// interface IHeaderWithChildren {
-//   label: string;
-//   children?: IHeader[];
-//   icon?: LucideIcon;
-// }
-
-// const HeaderWithChildren: IHeaderWithChildren[] = [
-//   {
-//     label: "Belajar Online",
-//     icon: CirclePlay,
-//     children: [
-//       { label: "Belajar Islam Dari Dasar", href: "/#kelas-online" },
-//       { label: "Belajar Qur’an Dari Dasar", href: "/#webinar" },
-//       { label: "Belajar Bahasa Arab Dari Dasar", href: "/#webinar" },
-//       { label: "Belajar Siroh Nabawi", href: "/#webinar" },
-//       { label: "Belajar Thibbun Nabawi", href: "/#webinar" },
-//     ],
-//   },
-//   {
-//     label: "Audio Islami",
-//     icon: Headphones,
-//     children: [
-//       { label: "Audio Murattal", href: "/#podcast" },
-//       { label: "Audio Kajian", href: "/#ceramah" },
-//     ],
-//   },
-//   {
-//     label: "Produk Kami",
-//     icon: ShoppingCart,
-//     children: [
-//       { label: "Tanya Ustadz", href: "/#buku" },
-//       { label: "Umrah & Haji", href: "/#merchandise" },
-//       { label: "Kredit Syariah", href: "/#merchandise" },
-//       { label: "Parfum Arab", href: "/#merchandise" },
-//     ],
-//   },
-// ];
-
 interface IHeaderItem {
   label: string;
   href?: string | undefined;
@@ -58,7 +14,7 @@ interface IHeaderItem {
   children?: IHeaderItem[];
 }
 
-const headerItems: IHeaderItem[] = [
+export const headerItems: IHeaderItem[] = [
   {
     label: "Belajar Online",
     icon: CirclePlay,
