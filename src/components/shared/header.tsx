@@ -7,6 +7,8 @@ import React, { useCallback, useRef, useState } from "react";
 
 import Logo from "@/public/images/Logo.png";
 
+import { Button } from "../isomorphic/button";
+
 interface IHeaderItem {
   label: string;
   href?: string | undefined;
@@ -106,6 +108,14 @@ export const Header: React.FC = () => {
             </div>
           ))}
         </nav>
+        <div className="flex gap-5">
+          <Button variant="secondary" size="lg" className="w-15 rounded-md bg-transparent px-5 py-2.5 text-white active:text-white">
+            Daftar
+          </Button>
+          <Button variant="primary" size="lg" className="w-15 rounded-md px-5 py-2.5">
+            Masuk
+          </Button>
+        </div>
 
         {/* Menu Mobile */}
         <button type="button" className="rounded-md md:hidden">
