@@ -17,7 +17,7 @@ const belajarOnline: IFooterItem[] = [
   },
   {
     href: "/#audio",
-    label: "Belajar Qur’an Dari Dasar",
+    label: "Belajar Qur'an Dari Dasar",
   },
   {
     href: "/#produk",
@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
         <div>
           <Image src={Logo} alt="Logo perusahaan" width={100} height={100} className="pb-3" />
           <p className="pb-1 tracking-normal">إنا قوم أعزنا الله بالإسلام فلن نبتغي العزة بغيره</p>
-          <p className="text-sm text-gray-400">Menukil kalam ulama, quran & hadist</p>
+          <p className="text-sm text-gray-400">Menukil kalam Ulama, Qur&apos;an & Hadist</p>
           <div className="flex space-x-4 pt-2">
             <Link href="#" className="text-white hover:text-gray-300">
               <Facebook size={20} />

@@ -14,9 +14,9 @@ export default function Home() {
           <Image
             src={Logo3}
             alt="logo"
-            className="w-36 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-110"
-            width={2000}
-            height={2000}
+            className="w-36 transition-all duration-1000 ease-in-out hover:-translate-y-2 hover:scale-110"
+            width={1000}
+            height={1000}
           />
           <h1 className="font-philosopher gradient-ns w-[800px] p-3 text-center">Ciptakan Konten Islami dengan Mudah</h1>
           <h4 className="font-normal tracking-normal text-gray-500">Desain otomatis untuk konten Islami Anda</h4>

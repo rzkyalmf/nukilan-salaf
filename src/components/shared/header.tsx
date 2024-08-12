@@ -108,13 +108,17 @@ export const Header: React.FC = () => {
             </div>
           ))}
         </nav>
-        <div className="flex gap-5">
-          <Button variant="secondary" size="lg" className="w-15 rounded-md bg-transparent px-5 py-2.5 text-white active:text-white">
-            Daftar
-          </Button>
-          <Button variant="primary" size="lg" className="w-15 rounded-md px-5 py-2.5">
-            Masuk
-          </Button>
+        <div className="hidden md:flex md:gap-5">
+          <Link href="/register">
+            <Button variant="secondary" size="lg" className="w-15 rounded-md bg-transparent px-5 py-2 text-white active:text-white">
+              Daftar
+            </Button>
+          </Link>
+          <Link href="/login">
+            <Button variant="primary" size="lg" className="w-15 rounded-md px-5 py-2.5">
+              Masuk
+            </Button>
+          </Link>
         </div>
 
         {/* Menu Mobile */}
