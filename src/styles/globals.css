@@ -51,3 +51,15 @@
     font-family: var(--font-philosopher), sans-serif;
   }
 }
+
+@layer components {
+  .msg {
+    @apply rounded-lg bg-slate-50 px-3 py-2 text-center text-sm font-medium text-slate-500;
+  }
+  .msg-error {
+    @apply bg-rose-100 text-rose-600;
+  }
+  .msg-success {
+    @apply bg-emerald-100 text-emerald-600;
+  }
+}
