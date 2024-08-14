@@ -8,9 +8,13 @@ import { EmailServices } from "@/services/email.services";
 import { UserServices } from "@/services/user.services";
 
 const registerSchema = z.object({
-  name: z.string().min(3, { message: "Nama terlalu pendek" }).max(32, { message: "Nama terlalu panjang" }),
+  name: z
+    .string()
+    .min(3, { message: "Nama terlalu pendek" })
+    .max(16, { message: "Nama terlalu panjang" })
+    .regex(/^[a-zA-Z ]+$/),
   email: z.string().email({ message: "Email tidak valid" }),
-  password: z.string().min(6, { message: "Password terlalu pendek" }).max(32, { message: "Password terlalu panjang" }),
+  password: z.string().min(6, { message: "Password terlalu pendek" }).max(24, { message: "Password terlalu panjang" }),
 });
 
 export async function registerAction(prevState: unknown, formData: FormData) {
@@ -32,6 +36,15 @@ export async function registerAction(prevState: unknown, formData: FormData) {
     };
   }
 
+  const existingUser = await UserServices.findUserByEmail(email);
+
+  if (existingUser) {
+    return {
+      status: "error",
+      message: "Email sudah terdaftar!",
+    };
+  }
+
   // input > DB
   try {
     const hanshedPassword = await bcrypt.hash(password, 13);
@@ -43,12 +56,12 @@ export async function registerAction(prevState: unknown, formData: FormData) {
 
     return {
       status: "success",
-      message: "Register success!",
+      message: "Registrasi berhasil! Cek email untuk verifikasi akun.",
     };
   } catch (error) {
     return {
       status: "error",
-      message: "Register error!",
+      message: "Terjadi kesalahan saat registrasi!",
     };
   }
 }

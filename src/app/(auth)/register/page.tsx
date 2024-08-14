@@ -14,7 +14,9 @@ export default function Page() {
 
   const getErrorMessage = () => {
     if (state?.status === "error") {
+      if (state.message) return state.message;
       if (!state.data?.name) return "Nama tidak boleh kosong";
+      if (!/^[a-zA-Z ]+$/.test(state.data.name)) return "Nama hanya boleh berisi huruf & spasi";
       if (state.errors.name) return state.errors.name;
       if (!state.data.email) return "Email tidak boleh kosong";
       if (state.errors.email) return state.errors.email;

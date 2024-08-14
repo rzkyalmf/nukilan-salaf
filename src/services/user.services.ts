@@ -3,6 +3,23 @@ import { User } from "@prisma/client";
 import prisma from "@/utils/prisma";
 
 export const UserServices = {
+  findUserByEmail: async (email: string) => {
+    const user = await prisma.user.findFirst({
+      where: {
+        AND: [
+          {
+            email,
+          },
+          {
+            isVerified: true,
+          },
+        ],
+      },
+    });
+
+    return user;
+  },
+
   createUser: async (user: Pick<User, "name" | "email" | "password">) => {
     const newUser = await prisma.user.create({
       data: {
