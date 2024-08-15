@@ -8,10 +8,13 @@ export const EmailServices = {
 
     if (user) {
       const { data, error } = await resend.emails.send({
-        from: "Nukilan Salaf <nukilansalaf@gmail.com>",
+        from: "Nukilan Salaf <admission@nukilansalaf.com>",
         to: [user.email],
         subject: "Verifikasi Akun Nukilan Salaf!",
-        html: `<p>Kode OTP ${code}</p>`,
+        html: `
+          <p>Kode OTP : <b>${code}</b></p>
+          <p>Link Verifikasi Akun : <a href="http://localhost:3000/verify/${userId}">Verifikasi Akun!</a></p>
+          `,
       });
 
       console.log({ data, error });
