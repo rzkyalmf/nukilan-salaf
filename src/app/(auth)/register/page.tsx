@@ -16,7 +16,7 @@ export default function Page() {
     if (state?.status === "error") {
       if (state.message) return state.message;
       if (!state.data?.name) return "Nama tidak boleh kosong";
-      if (!/^[a-zA-Z ]+$/.test(state.data.name)) return "Nama hanya boleh berisi huruf & spasi";
+      if (!/^[a-zA-Z ]+$/.test(state.data.name)) return "Nama hanya boleh berisi huruf";
       if (state.errors.name) return state.errors.name;
       if (!state.data.email) return "Email tidak boleh kosong";
       if (state.errors.email) return state.errors.email;
@@ -59,12 +59,6 @@ export default function Page() {
         {errorMessage && (
           <div className="mt-4 text-red-600" role="alert">
             <p>{errorMessage}</p>
-          </div>
-        )}
-
-        {state?.status === "success" && (
-          <div className="mt-4 text-green-600" role="alert">
-            <p>{state.message}</p>
           </div>
         )}
       </form>

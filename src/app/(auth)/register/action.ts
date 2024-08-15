@@ -1,6 +1,7 @@
 "use server";
 
 import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 import z from "zod";
 
 import { generateVerificationCode } from "@/libs/generate-verification-code";
@@ -46,22 +47,13 @@ export async function registerAction(prevState: unknown, formData: FormData) {
   }
 
   // input > DB
-  try {
-    const hanshedPassword = await bcrypt.hash(password, 13);
-    const user = await UserServices.createUser({ name, email, password: hanshedPassword });
-    const verificationCode = generateVerificationCode();
 
-    await UserServices.createVerificationCode(user.id, verificationCode);
-    await EmailServices.sendVerificationCode(user.id, verificationCode);
+  const hanshedPassword = await bcrypt.hash(password, 13);
+  const user = await UserServices.createUser({ name, email, password: hanshedPassword });
+  const verificationCode = generateVerificationCode();
 
-    return {
-      status: "success",
-      message: "Registrasi berhasil! Cek email untuk verifikasi akun.",
-    };
-  } catch (error) {
-    return {
-      status: "error",
-      message: "Terjadi kesalahan saat registrasi!",
-    };
-  }
+  await UserServices.createVerificationCode(user.id, verificationCode);
+  await EmailServices.sendVerificationCode(user.id, verificationCode);
+
+  redirect(`/verify/${user.id}`);
 }

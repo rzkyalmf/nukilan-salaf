@@ -28,7 +28,17 @@ export const UserServices = {
         password: user.password,
       },
     });
+
     return newUser;
+  },
+
+  createVerificationCode: async (userId: string, code: string) => {
+    await prisma.verificationCode.create({
+      data: {
+        userId,
+        code,
+      },
+    });
   },
 
   findUser: async (idOrEmail: string) => {
@@ -48,10 +58,57 @@ export const UserServices = {
     return user;
   },
 
-  createVerificationCode: async (userId: string, code: string) => {
-    await prisma.verificationCode.create({
+  findCodeUser: async (userId: string, code: string) => {
+    const user = await prisma.verificationCode.findFirst({
+      where: {
+        AND: [
+          {
+            userId,
+          },
+          {
+            code,
+          },
+        ],
+      },
+    });
+
+    return user;
+  },
+
+  verificationUser: async (id: string) => {
+    const user = await prisma.user.findFirst({
+      where: {
+        AND: [
+          {
+            id,
+          },
+          {
+            isVerified: true,
+          },
+        ],
+      },
+    });
+
+    return user;
+  },
+
+  updateVerificationUser: async (userId: string) => {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
       data: {
+        isVerified: true,
+      },
+    });
+  },
+
+  updateCode: async (userId: string, code: string) => {
+    await prisma.verificationCode.update({
+      where: {
         userId,
+      },
+      data: {
         code,
       },
     });

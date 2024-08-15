@@ -10,8 +10,8 @@ export const EmailServices = {
       const { data, error } = await resend.emails.send({
         from: "Nukilan Salaf <nukilansalaf@gmail.com>",
         to: [user.email],
-        subject: "Verify your account at Nukilan Salaf!",
-        html: `<p>Click following link to verify <a href="http://localhost:3000/verify?user=${userId}&code=${code}">Verify My Account</a></p>`,
+        subject: "Verifikasi Akun Nukilan Salaf!",
+        html: `<p>Kode OTP ${code}</p>`,
       });
 
       console.log({ data, error });
