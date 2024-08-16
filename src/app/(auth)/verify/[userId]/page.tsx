@@ -1,7 +1,7 @@
 "use client";
 
 import { KeyRound } from "lucide-react";
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
 import { Button } from "@/components/isomorphic/button";
 import { Input } from "@/components/isomorphic/input";
@@ -18,7 +18,38 @@ interface Props {
 export default function Page({ params }: Props) {
   const { userId } = params;
   const [state, formAction, pending] = useActionState(otpAction, null);
-  const [_stateOtp, updateFormAction, pendingOtp] = useActionState(newCodeAction, null);
+  const [stateOtp, updateFormAction] = useActionState(newCodeAction, null);
+  const [pendingOtp, setPending] = useState(false);
+
+  useEffect(() => {
+    const lastClickTime = localStorage.getItem("lastResendClickTime");
+    if (lastClickTime) {
+      const timeElapsed = Date.now() - parseInt(lastClickTime);
+      if (timeElapsed < 60000) {
+        setPending(true);
+        const remainingTime = 60000 - timeElapsed;
+        setTimeout(() => setPending(false), remainingTime);
+      }
+    }
+  }, []);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setPending(true);
+
+    const form = event.currentTarget.form;
+    if (form) {
+      const formData = new FormData(form);
+      updateFormAction(formData);
+    }
+
+    localStorage.setItem("lastResendClickTime", Date.now().toString());
+
+    setTimeout(() => {
+      setPending(false);
+      localStorage.removeItem("lastResendClickTime");
+    }, 60000);
+  };
 
   const getErrorMessage = () => {
     if (state?.status === "error") {
@@ -35,7 +66,9 @@ export default function Page({ params }: Props) {
     <>
       <section>
         <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Kode OTP</h2>
-        <p className="mb-6 font-light tracking-normal text-gray-500">Cek email anda untuk kode verifikasi</p>
+        <p className="mb-6 font-light tracking-normal text-gray-500">
+          <b className="font-medium underline">Cek email</b> anda untuk kode verifikasi
+        </p>
       </section>
 
       <form action={formAction} className="space-y-2">
@@ -57,10 +90,15 @@ export default function Page({ params }: Props) {
         <input name="id" value={userId} hidden />
         <p className="mb-6 font-light tracking-normal text-gray-500">
           Belum menerima kode ?{" "}
-          <button disabled={pendingOtp} className="font-semibold">
-            {pendingOtp ? "Mengirim..." : "Kirim Ulang"}
+          <button disabled={pendingOtp} onClick={handleClick} className="font-medium">
+            {pendingOtp ? "Telah terkirim..." : "Kirim Ulang"}
           </button>
         </p>
+        {stateOtp?.message && (
+          <div className="msg msg-error" role="alert">
+            <p>{stateOtp.message}</p>
+          </div>
+        )}
       </form>
     </>
   );

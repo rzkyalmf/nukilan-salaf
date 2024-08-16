@@ -20,7 +20,7 @@ export default function Page() {
       if (state.errors.name) return state.errors.name;
       if (!state.data.email) return "Email tidak boleh kosong";
       if (state.errors.email) return state.errors.email;
-      if (!state.data.password) return "Kata sandi tidak boleh kosong";
+      if (!state.data.password) return "Password tidak boleh kosong";
       if (state.errors.password) return state.errors.password;
     }
     return null;
@@ -31,14 +31,14 @@ export default function Page() {
   return (
     <>
       <section>
-        <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Register</h2>
-        <p className="mb-6 font-light tracking-normal text-gray-500">Create an account to get started</p>
+        <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Daftar</h2>
+        <p className="mb-6 font-light tracking-normal text-gray-500">Buat akun untuk memulai</p>
       </section>
 
       <form action={formAction} className="space-y-2">
         <div className="relative">
           <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
-          <Input className="pl-11 text-slate-600" name="name" placeholder="Name" defaultValue={state?.data?.name} />
+          <Input className="pl-11 text-slate-600" name="name" placeholder="Nama" defaultValue={state?.data?.name} />
         </div>
         <div className="relative">
           <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
@@ -54,7 +54,7 @@ export default function Page() {
             defaultValue={state?.data?.password}
           />
         </div>
-        <Button disabled={pending}>{pending ? "Registering..." : "Register"}</Button>
+        <Button disabled={pending}>{pending ? "Sedang mendaftarkan..." : "Daftar Sekarang"}</Button>
 
         {errorMessage && (
           <div className="mt-4 text-red-600" role="alert">
@@ -65,9 +65,9 @@ export default function Page() {
 
       <section>
         <p className="mb-6 font-light tracking-normal text-gray-500">
-          Have an account ?{" "}
-          <Link className="font-semibold" href="/login">
-            Login
+          Sudah punya akun ?{" "}
+          <Link className="font-medium" href="/login">
+            Masuk
           </Link>
         </p>
       </section>

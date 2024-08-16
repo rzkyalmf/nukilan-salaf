@@ -23,7 +23,7 @@ export default function Page() {
       <section>
         <p className="mb-6 font-light tracking-normal text-gray-500">
           Don&apos;t have an account ?{" "}
-          <Link href="/register" className="font-semibold">
+          <Link href="/register" className="font-medium">
             Register
           </Link>
         </p>
