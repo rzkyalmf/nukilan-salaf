@@ -25,9 +25,9 @@ export async function newCodeAction(state: unknown, formData: FormData) {
     };
   }
 
-  const exitingVerify = await UserServices.verificationUser(userId);
+  const exitingVerify = await UserServices.findUser(userId);
 
-  if (exitingVerify) {
+  if (exitingVerify?.isVerified) {
     return {
       status: "error",
       message: "Akun anda sudah diverifikasi, Silahkan login!",

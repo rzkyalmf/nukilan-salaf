@@ -3,44 +3,6 @@ import { User } from "@prisma/client";
 import prisma from "@/utils/prisma";
 
 export const UserServices = {
-  findUserByEmail: async (email: string) => {
-    const user = await prisma.user.findFirst({
-      where: {
-        AND: [
-          {
-            email,
-          },
-          {
-            isVerified: true,
-          },
-        ],
-      },
-    });
-
-    return user;
-  },
-
-  createUser: async (user: Pick<User, "name" | "email" | "password">) => {
-    const newUser = await prisma.user.create({
-      data: {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-      },
-    });
-
-    return newUser;
-  },
-
-  createVerificationCode: async (userId: string, code: string) => {
-    await prisma.verificationCode.create({
-      data: {
-        userId,
-        code,
-      },
-    });
-  },
-
   findUser: async (idOrEmail: string) => {
     const user = await prisma.user.findFirst({
       where: {
@@ -58,32 +20,37 @@ export const UserServices = {
     return user;
   },
 
-  findCodeUser: async (userId: string, code: string) => {
-    const user = await prisma.verificationCode.findFirst({
-      where: {
-        AND: [
-          {
-            userId,
-          },
-          {
-            code,
-          },
-        ],
+  createUser: async (user: Pick<User, "name" | "email" | "password" | "isVerified">) => {
+    const newUser = await prisma.user.create({
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        isVerified: user.isVerified,
       },
     });
 
-    return user;
+    return newUser;
   },
 
-  verificationUser: async (id: string) => {
-    const user = await prisma.user.findFirst({
+  createVerificationCode: async (userId: string, code: string) => {
+    await prisma.verificationCode.create({
+      data: {
+        userId,
+        code,
+      },
+    });
+  },
+
+  findCodeUser: async (userIdorCode: string) => {
+    const user = await prisma.verificationCode.findFirst({
       where: {
-        AND: [
+        OR: [
           {
-            id,
+            userId: userIdorCode,
           },
           {
-            isVerified: true,
+            code: userIdorCode,
           },
         ],
       },

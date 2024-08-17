@@ -37,9 +37,9 @@ export async function registerAction(prevState: unknown, formData: FormData) {
     };
   }
 
-  const existingUser = await UserServices.findUserByEmail(email);
+  const existingUser = await UserServices.findUser(email);
 
-  if (existingUser) {
+  if (existingUser?.isVerified) {
     return {
       status: "error",
       message: "Email sudah terdaftar!",
@@ -47,9 +47,8 @@ export async function registerAction(prevState: unknown, formData: FormData) {
   }
 
   // input > DB
-
   const hanshedPassword = await bcrypt.hash(password, 13);
-  const user = await UserServices.createUser({ name, email, password: hanshedPassword });
+  const user = await UserServices.createUser({ name, email, password: hanshedPassword, isVerified: false });
   const verificationCode = generateVerificationCode();
 
   await UserServices.createVerificationCode(user.id, verificationCode);

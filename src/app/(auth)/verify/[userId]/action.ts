@@ -20,22 +20,29 @@ export async function otpAction(state: unknown, formData: FormData) {
     return {
       status: "error",
       errors: otpValidation.error.flatten().fieldErrors,
-      data: { code, userId },
+      data: {
+        code,
+        userId,
+      },
     };
   }
 
-  const existingCode = await UserServices.findCodeUser(userId, code);
+  const existingCode = await UserServices.findCodeUser(code);
 
   if (!existingCode) {
     return {
       status: "error",
       message: "Kode OTP Salah!",
+      data: {
+        code,
+        userId,
+      },
     };
   }
 
-  const exitingVerify = await UserServices.verificationUser(userId);
+  const exitingVerify = await UserServices.findUser(userId);
 
-  if (exitingVerify) {
+  if (exitingVerify?.isVerified) {
     return {
       status: "error",
       message: "Akun anda sudah diverifikasi, Silahkan login!",
