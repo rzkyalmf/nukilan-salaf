@@ -96,10 +96,10 @@ export default function Page({ params }: Props) {
         </p>
 
         {stateOtp?.status === "error" && stateOtp.errors?.userId ? (
-          <div className="msg msg-error">{stateOtp?.errors?.userId}</div>
+          <div className="msg msg-error">{stateOtp.errors.userId}</div>
         ) : null}
 
-        {stateOtp?.message && stateOtp.message ? <div className="msg msg-error">{stateOtp?.message}</div> : null}
+        {stateOtp?.message && stateOtp.message ? <div className="msg msg-error">{stateOtp.message}</div> : null}
       </form>
     </>
   );

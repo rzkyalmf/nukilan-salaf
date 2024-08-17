@@ -1,5 +1,6 @@
 "use client";
 
+import { Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useActionState } from "react";
 
@@ -8,7 +9,6 @@ import { Input } from "@/components/isomorphic/input";
 
 import { SocialLoginBtn } from "../comp.social-login";
 import { loginAction } from "./action";
-import { Lock, Mail, User } from "lucide-react";
 
 export default function Page() {
   const [state, formAction, pending] = useActionState(loginAction, null);
