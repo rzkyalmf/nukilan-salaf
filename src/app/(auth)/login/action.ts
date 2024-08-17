@@ -35,7 +35,7 @@ export async function loginAction(state: unknown, formData: FormData) {
   if (!user) {
     return {
       status: "error",
-      message: "Akun tidak ditemukan!",
+      message: "Akun belum terdaftar!",
       data: {
         email,
         password,
@@ -57,7 +57,7 @@ export async function loginAction(state: unknown, formData: FormData) {
   if (!user.password) {
     return {
       status: "error",
-      message: "Anda membuat akun melalui Google, Silahkan login melalui Google!",
+      message: "Silakan masuk dengan Google!",
       data: {
         email,
         password,

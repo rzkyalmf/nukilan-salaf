@@ -49,6 +49,13 @@ export async function otpAction(state: unknown, formData: FormData) {
     };
   }
 
+  if (exitingVerify?.id !== userId) {
+    return {
+      status: "error",
+      message: "Masukan kode OTP melalui link yang kami kirimkan melalui email",
+    };
+  }
+
   await UserServices.updateVerificationUser(userId);
 
   redirect("/login");

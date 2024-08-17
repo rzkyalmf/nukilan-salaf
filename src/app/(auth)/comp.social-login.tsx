@@ -7,7 +7,7 @@ import { loginWithGoogleAction } from "./action.social-login";
 export const SocialLoginBtn = () => {
   return (
     <form action={loginWithGoogleAction}>
-      <Button variant="secondary">Continue with Google</Button>
+      <Button variant="secondary">Masuk Dengan Akun Google</Button>
     </form>
   );
 };
