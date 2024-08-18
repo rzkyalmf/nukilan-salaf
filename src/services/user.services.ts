@@ -13,6 +13,11 @@ export const UserServices = {
           {
             email: idOrEmail,
           },
+          {
+            verificationCode: {
+              code: idOrEmail,
+            },
+          },
         ],
       },
     });
@@ -77,6 +82,17 @@ export const UserServices = {
       },
       data: {
         code,
+      },
+    });
+  },
+
+  updatePassword: async (id: string, password: string) => {
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password,
       },
     });
   },

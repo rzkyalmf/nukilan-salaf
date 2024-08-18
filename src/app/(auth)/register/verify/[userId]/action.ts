@@ -30,9 +30,25 @@ export async function otpAction(state: unknown, formData: FormData) {
     };
   }
 
+  const exitingVerify = await UserServices.findUser(userId);
+
+  if (exitingVerify?.isVerified) {
+    return {
+      status: "error",
+      message: "Akun anda sudah diverifikasi, Silahkan login!",
+    };
+  }
+
+  if (!exitingVerify?.id) {
+    return {
+      status: "error",
+      message: "Page Error, Masukan kode OTP melalui link yang kami kirimkan melalui email",
+    };
+  }
+
   const existingCode = await UserServices.findCodeUser(code);
 
-  if (!existingCode) {
+  if (!existingCode?.code) {
     return {
       status: "error",
       message: "Kode OTP Salah!",
@@ -43,27 +59,22 @@ export async function otpAction(state: unknown, formData: FormData) {
     };
   }
 
-  const exitingVerify = await UserServices.findUser(userId);
-
-  if (exitingVerify?.isVerified) {
+  if (existingCode.code === code && existingCode.userId !== userId) {
     return {
       status: "error",
-      message: "Akun anda sudah diverifikasi, Silahkan login!",
-    };
-  }
-
-  if (exitingVerify?.id !== userId) {
-    return {
-      status: "error",
-      message: "Page Error, Masukan kode OTP melalui link yang kami kirimkan melalui email",
+      message: "Kode OTP Salah!",
+      data: {
+        code,
+        userId,
+      },
     };
   }
 
   await UserServices.updateVerificationUser(userId);
 
   // Generate code lagi supaya code yang sebelumnya tidak bisa digunakan lagi.
-  const verificationCode = generateVerificationCode();
-  await UserServices.updateCode(userId, verificationCode);
+  const newCode = generateVerificationCode();
+  await UserServices.updateCode(userId, newCode);
 
   // JWT Token
   const payload = {

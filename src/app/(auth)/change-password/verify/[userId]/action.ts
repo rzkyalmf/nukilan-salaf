@@ -29,7 +29,18 @@ export async function verifyResetPassAction(state: unknown, formData: FormData) 
 
   const existingCode = await UserServices.findCodeUser(code);
 
-  if (!existingCode) {
+  if (!existingCode?.userId) {
+    return {
+      status: "error",
+      message: "Page Error!",
+      data: {
+        code,
+        userId,
+      },
+    };
+  }
+
+  if (!existingCode.code) {
     return {
       status: "error",
       message: "Kode OTP Salah!",
@@ -40,12 +51,16 @@ export async function verifyResetPassAction(state: unknown, formData: FormData) 
     };
   }
 
-  if (existingCode.userId !== userId) {
+  if (existingCode.code === code && existingCode.userId !== userId) {
     return {
       status: "error",
-      message: "Page Error, Masukan kode OTP melalui link yang kami kirimkan melalui email",
+      message: "Kode OTP Salah!",
+      data: {
+        code,
+        userId,
+      },
     };
   }
 
-  redirect(`/change-password/newpas/${code}`);
+  redirect(`/change-password/newpass/${code}`);
 }
