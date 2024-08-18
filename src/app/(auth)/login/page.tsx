@@ -50,6 +50,12 @@ export default function Page() {
         </div>
         <Button disabled={pending}>{pending ? "Sedang masuk..." : "Masuk"}</Button>
 
+        <div>
+          <Link href="/change-password" className="font-light tracking-normal text-gray-500 hover:text-[#C2B59B]">
+            Lupa Password ?
+          </Link>
+        </div>
+
         {errorMessage && (
           <div className="mt-4 text-red-600" role="alert">
             <p>{errorMessage}</p>
@@ -59,19 +65,19 @@ export default function Page() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
+          <div className="w-full border-t border-gray-300" />
         </div>
-        <div className="relative flex justify-center text-sm">
+        <div className="relative flex justify-center text-sm font-light">
           <span className="bg-white px-2 text-gray-300">Atau</span>
         </div>
       </div>
 
       <SocialLoginBtn />
 
-      <section>
-        <p className="mb-6 font-light tracking-normal text-gray-500">
+      <section className="flex items-center justify-center">
+        <p className="font-light tracking-normal text-gray-500">
           Belum punya akun ?{" "}
-          <Link href="/register" className="font-medium">
+          <Link href="/register" className="font-medium hover:text-[#C2B59B]">
             Daftar
           </Link>
         </p>

@@ -7,7 +7,7 @@ import { generateVerificationCode } from "@/libs/generate-verification-code";
 import { UserServices } from "@/services/user.services";
 
 const contentSchema = z.object({
-  userId: z.string().length(25, { message: "Masukan kode OTP melalui link yang kami kirimkan melalui email" }),
+  userId: z.string().length(25, { message: "Page Error, Masukan kode OTP melalui link yang kami kirimkan melalui email" }),
 });
 
 export async function newCodeAction(state: unknown, formData: FormData) {

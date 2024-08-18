@@ -64,9 +64,9 @@ export default function Page() {
       </form>
 
       <section>
-        <p className="mb-6 font-light tracking-normal text-gray-500">
+        <p className="font-light tracking-normal text-gray-500">
           Sudah punya akun ?{" "}
-          <Link className="font-medium" href="/login">
+          <Link className="font-medium hover:text-[#C2B59B]" href="/login">
             Masuk
           </Link>
         </p>

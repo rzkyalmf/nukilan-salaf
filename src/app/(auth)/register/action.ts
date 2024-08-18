@@ -54,5 +54,5 @@ export async function registerAction(prevState: unknown, formData: FormData) {
   await UserServices.createVerificationCode(user.id, verificationCode);
   // await EmailServices.sendVerificationCode(user.id, verificationCode);
 
-  redirect(`/verify/${user.id}`);
+  redirect(`/register/verify/${user.id}`);
 }
