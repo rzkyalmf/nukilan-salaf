@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/isomorphic/button";
 import { Footer } from "@/components/shared/footer";
@@ -20,9 +21,11 @@ export default function Home() {
           />
           <h1 className="font-philosopher gradient-ns w-[800px] p-3 text-center">Ciptakan Konten Islami dengan Mudah</h1>
           <h4 className="font-normal tracking-normal text-gray-500">Desain otomatis untuk konten Islami Anda</h4>
-          <Button size="lg" variant="primary" className="w-[140px] px-4 py-4">
-            Buat Konten
-          </Button>
+          <Link href={"/login"}>
+            <Button size="lg" variant="primary" className="w-[140px] px-4 py-4">
+              Buat Konten
+            </Button>
+          </Link>
         </div>
       </div>
       <Footer />
