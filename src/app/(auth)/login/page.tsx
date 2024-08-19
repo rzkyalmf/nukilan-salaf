@@ -1,6 +1,6 @@
 "use client";
 
-import { Lock, Mail } from "lucide-react";
+import { CircleX, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useActionState } from "react";
 
@@ -28,9 +28,16 @@ export default function Page() {
 
   return (
     <>
-      <section>
-        <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Masuk</h2>
-        <p className="mb-6 font-light tracking-normal text-gray-500">Selamat Datang Kembali!</p>
+      <section className="flex items-center justify-between">
+        <div>
+          <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Masuk</h2>
+          <p className="font-light tracking-normal text-gray-500">Selamat Datang Kembali!</p>
+        </div>
+        <div>
+          <Link href="/" className="text-gray-400 hover:text-[#C2B59B]">
+            <CircleX size={22} strokeWidth={1.4} />
+          </Link>
+        </div>
       </section>
 
       <form action={formAction} className="space-y-2">
@@ -77,7 +84,7 @@ export default function Page() {
       <section className="flex items-center justify-center">
         <p className="font-light tracking-normal text-gray-500">
           Belum punya akun ?{" "}
-          <Link href="/register" className="font-medium hover:text-[#C2B59B]">
+          <Link href="/register" className="font-normal hover:text-[#C2B59B]">
             Daftar
           </Link>
         </p>

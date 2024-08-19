@@ -32,7 +32,7 @@ export async function verifyResetPassAction(state: unknown, formData: FormData) 
   if (!existingCode?.userId) {
     return {
       status: "error",
-      message: "Page Error!",
+      message: "Masukan kode OTP melalui link yang kami kirimkan melalui email!",
       data: {
         code,
         userId,

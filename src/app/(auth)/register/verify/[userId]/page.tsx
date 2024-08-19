@@ -90,7 +90,7 @@ export default function Page({ params }: Props) {
         <input name="id" value={userId} hidden />
         <p className="mb-6 font-light tracking-normal text-gray-500">
           Belum menerima kode ?{" "}
-          <button disabled={pendingOtp} onClick={handleClick} className="font-medium hover:text-[#C2B59B]">
+          <button disabled={pendingOtp} onClick={handleClick} className="font-normal hover:text-[#C2B59B]">
             {pendingOtp ? "Telah terkirim..." : "Kirim Ulang"}
           </button>
         </p>

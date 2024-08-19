@@ -1,12 +1,13 @@
 "use client";
 
-import { Lock, Mail, User } from "lucide-react";
+import { CircleX, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useActionState } from "react";
 
 import { Button } from "@/components/isomorphic/button";
 import { Input } from "@/components/isomorphic/input";
 
+import { SocialLoginBtn } from "../comp.social-login";
 import { registerAction } from "./action";
 
 export default function Page() {
@@ -30,9 +31,16 @@ export default function Page() {
 
   return (
     <>
-      <section>
-        <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Daftar</h2>
-        <p className="mb-6 font-light tracking-normal text-gray-500">Buat akun untuk memulai</p>
+      <section className="flex items-center justify-between">
+        <div>
+          <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Daftar</h2>
+          <p className="font-light tracking-normal text-gray-500">Buat Akun Nukilan Salaf!</p>
+        </div>
+        <div>
+          <Link href="/" className="text-gray-400 hover:text-[#C2B59B]">
+            <CircleX size={22} strokeWidth={1.4} />
+          </Link>
+        </div>
       </section>
 
       <form action={formAction} className="space-y-2">
@@ -63,11 +71,22 @@ export default function Page() {
         )}
       </form>
 
-      <section>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center text-sm font-light">
+          <span className="bg-white px-2 text-gray-300">Atau</span>
+        </div>
+      </div>
+
+      <SocialLoginBtn />
+
+      <section className="flex items-center justify-center">
         <p className="font-light tracking-normal text-gray-500">
           Sudah punya akun ?{" "}
-          <Link className="font-medium hover:text-[#C2B59B]" href="/login">
-            Masuk
+          <Link href="/login" className="font-normal hover:text-[#C2B59B]">
+            Login
           </Link>
         </p>
       </section>

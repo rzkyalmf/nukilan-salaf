@@ -8,7 +8,7 @@ import { generateVerificationCode } from "@/libs/generate-verification-code";
 import { UserServices } from "@/services/user.services";
 
 const resetSchema = z.object({
-  code: z.string().length(6, { message: "Page Error length" }),
+  code: z.string().length(6, { message: "Ganti password gagal, silahkan mulai dari ulang lagi" }),
   password: z.string().min(6, { message: "Password terlalu pendek" }).max(24, { message: "Password terlalu panjang" }),
 });
 
@@ -34,7 +34,7 @@ export async function resetPassAction(state: unknown, formData: FormData) {
   if (!existingCode?.code) {
     return {
       status: "error",
-      message: "Page Error!",
+      message: "Ganti password gagal, silahkan mulai dari ulang lagi!",
       data: {
         code,
       },

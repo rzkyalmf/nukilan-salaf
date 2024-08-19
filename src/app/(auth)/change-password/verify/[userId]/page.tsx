@@ -1,12 +1,13 @@
 "use client";
 
 import { KeyRound } from "lucide-react";
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
 import { Button } from "@/components/isomorphic/button";
 import { Input } from "@/components/isomorphic/input";
 
 import { verifyResetPassAction } from "./action";
+import { newCodeAction } from "./newCode-action";
 
 interface Props {
   params: {
@@ -17,6 +18,38 @@ interface Props {
 export default function Page({ params }: Props) {
   const { userId } = params;
   const [state, formAction, pending] = useActionState(verifyResetPassAction, null);
+  const [stateOtp, updateFormAction] = useActionState(newCodeAction, null);
+  const [pendingOtp, setPending] = useState(false);
+
+  useEffect(() => {
+    const lastClickTime = localStorage.getItem("lastResendClickTime");
+    if (lastClickTime) {
+      const timeElapsed = Date.now() - parseInt(lastClickTime);
+      if (timeElapsed < 60000) {
+        setPending(true);
+        const remainingTime = 60000 - timeElapsed;
+        setTimeout(() => setPending(false), remainingTime);
+      }
+    }
+  }, []);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setPending(true);
+
+    const form = event.currentTarget.form;
+    if (form) {
+      const formData = new FormData(form);
+      updateFormAction(formData);
+    }
+
+    localStorage.setItem("lastResendClickTime", Date.now().toString());
+
+    setTimeout(() => {
+      setPending(false);
+      localStorage.removeItem("lastResendClickTime");
+    }, 60000);
+  };
 
   const getErrorMessage = () => {
     if (state?.status === "error") {
@@ -52,6 +85,22 @@ export default function Page({ params }: Props) {
             <p>{errorMessage}</p>
           </div>
         )}
+      </form>
+
+      <form action={updateFormAction}>
+        <input name="id" value={userId} hidden />
+        <p className="mb-6 font-light tracking-normal text-gray-500">
+          Belum menerima kode ?{" "}
+          <button disabled={pendingOtp} onClick={handleClick} className="font-normal hover:text-[#C2B59B]">
+            {pendingOtp ? "Telah terkirim..." : "Kirim Ulang"}
+          </button>
+        </p>
+
+        {stateOtp?.status === "error" && stateOtp.errors?.userId ? (
+          <div className="msg msg-error">{stateOtp.errors.userId}</div>
+        ) : null}
+
+        {stateOtp?.message && stateOtp.message ? <div className="msg msg-error">{stateOtp.message}</div> : null}
       </form>
     </>
   );
