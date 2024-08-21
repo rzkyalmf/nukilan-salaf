@@ -1,15 +1,18 @@
 import Link from "next/link";
+import { ReactNode } from "react";
 
 interface Props {
   label: string;
   href: string;
+  icon: ReactNode;
 }
 
-export const Menu = (props: Props) => {
+export const Menu = ({ label, href, icon }: Props) => {
   return (
-    <Link href={props.href}>
-      <div className="cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-[15px] font-semibold text-slate-700 transition duration-200 hover:bg-indigo-600 hover:text-white active:bg-indigo-400">
-        {props.label}
+    <Link href={href}>
+      <div className="flex cursor-pointer items-center rounded-md bg-gradient-to-br px-3 py-2 text-base font-normal tracking-normal text-gray-500 hover:from-[#b3a78e] hover:to-[#665f50] hover:text-white active:from-[#a49981] active:to-[#585245]">
+        <span className="mr-3">{icon}</span>
+        {label}
       </div>
     </Link>
   );

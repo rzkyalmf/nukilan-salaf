@@ -75,13 +75,14 @@ export const UserServices = {
     });
   },
 
-  updateCode: async (userId: string, code: string) => {
+  updateCode: async (userId: string, code: string, now: number) => {
     await prisma.verificationCode.update({
       where: {
         userId,
       },
       data: {
         code,
+        lastSentAt: new Date(now),
       },
     });
   },

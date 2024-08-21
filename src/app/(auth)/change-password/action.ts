@@ -59,7 +59,8 @@ export async function resetAction(state: unknown, formData: FormData) {
   }
 
   const verificationCode = generateVerificationCode();
-  await UserServices.updateCode(user.id, verificationCode);
+  const now = new Date().getTime();
+  await UserServices.updateCode(user.id, verificationCode, now);
   // await EmailServices.sendVerificationPass(user.id, verificationCode);
 
   redirect(`/change-password/verify/${user.id}`);

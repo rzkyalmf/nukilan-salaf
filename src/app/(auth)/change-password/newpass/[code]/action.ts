@@ -45,7 +45,8 @@ export async function resetPassAction(state: unknown, formData: FormData) {
 
   // Generate code lagi supaya code yang sebelumnya tidak bisa digunakan lagi.
   const newCode = generateVerificationCode();
-  await UserServices.updateCode(userId, newCode);
+  const now = new Date().getTime();
+  await UserServices.updateCode(userId, newCode, now);
 
   const hanshedPassword = await bcrypt.hash(password, 13);
   await UserServices.updatePassword(userId, hanshedPassword);

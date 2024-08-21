@@ -28,6 +28,7 @@ model VerificationCode {
   userId String @unique
   user User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+  lastSentAt DateTime @default(now())
 }
 
 model Quotes {

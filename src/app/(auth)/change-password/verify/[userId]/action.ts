@@ -27,9 +27,9 @@ export async function verifyResetPassAction(state: unknown, formData: FormData) 
     };
   }
 
-  const existingCode = await UserServices.findCodeUser(code);
+  const existingUser = await UserServices.findUser(userId);
 
-  if (!existingCode?.userId) {
+  if (!existingUser?.id) {
     return {
       status: "error",
       message: "Masukan kode OTP melalui link yang kami kirimkan melalui email!",
@@ -40,7 +40,9 @@ export async function verifyResetPassAction(state: unknown, formData: FormData) 
     };
   }
 
-  if (!existingCode.code) {
+  const existingCode = await UserServices.findCodeUser(code);
+
+  if (!existingCode?.code) {
     return {
       status: "error",
       message: "Kode OTP Salah!",

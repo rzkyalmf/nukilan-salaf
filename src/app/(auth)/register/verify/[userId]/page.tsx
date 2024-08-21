@@ -18,7 +18,7 @@ interface Props {
 export default function Page({ params }: Props) {
   const { userId } = params;
   const [state, formAction, pending] = useActionState(otpAction, null);
-  const [_stateOtp, updateFormAction, pendingOtp] = useActionState(newCodeAction, null);
+  const [stateOtp, updateFormAction, pendingOtp] = useActionState(newCodeAction, null);
 
   const getErrorMessage = () => {
     if (state?.status === "error") {
@@ -62,6 +62,9 @@ export default function Page({ params }: Props) {
           <button disabled={pendingOtp} className="font-normal hover:text-[#C2B59B]">
             {pendingOtp ? "Telah terkirim..." : "Kirim Ulang"}
           </button>
+          {stateOtp?.status === "error" && <p className="msg msg-error my-5">{stateOtp.message}</p>}
+          {stateOtp?.status === "success" && <p className="msg msg-success my-5">{stateOtp.message}</p>}
+          {stateOtp?.errors?.userId && <p className="msg msg-error">{stateOtp.errors.userId}</p>}
         </p>
       </form>
     </>

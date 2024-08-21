@@ -25,22 +25,41 @@ export async function newCodeAction(state: unknown, formData: FormData) {
     };
   }
 
-  const exitingVerify = await UserServices.findUser(userId);
-
-  if (exitingVerify?.isVerified) {
-    return {
-      status: "error",
-      message: "Akun anda sudah diverifikasi, Silahkan login!",
-    };
-  }
-
   try {
-    const verificationCode = generateVerificationCode();
-    await UserServices.updateCode(userId, verificationCode);
+    const existingVerify = await UserServices.findUser(userId);
+
+    if (existingVerify?.isVerified) {
+      return {
+        status: "error",
+        message: "Akun anda sudah diverifikasi, Silahkan login!",
+      };
+    }
+
+    const existingCode = await UserServices.findCodeUser(userId);
+    const now = new Date().getTime();
+
+    if (existingCode?.lastSentAt) {
+      const lastSentAt = new Date(existingCode.lastSentAt).getTime();
+      const timeSinceLastSent = now - lastSentAt;
+
+      if (timeSinceLastSent < 60000) {
+        const remainingTime = Math.max(0, Math.ceil((60000 - timeSinceLastSent) / 1000));
+
+        return {
+          status: "error",
+          message: `Tunggu selama ${remainingTime.toString()} detik lagi!`,
+        };
+      }
+    }
+
+    const generateCode = generateVerificationCode();
+
+    await UserServices.updateCode(userId, generateCode, now);
     // await EmailServices.sendVerificationCode(userId, verificationCode);
 
     return {
       status: "success",
+      message: "Kode OTP baru telah dikirim ke email anda!",
     };
   } catch (error) {
     return {

@@ -30,16 +30,16 @@ export async function otpAction(state: unknown, formData: FormData) {
     };
   }
 
-  const exitingVerify = await UserServices.findUser(userId);
+  const existingVerify = await UserServices.findUser(userId);
 
-  if (exitingVerify?.isVerified) {
+  if (existingVerify?.isVerified) {
     return {
       status: "error",
       message: "Akun anda sudah diverifikasi, Silahkan login!",
     };
   }
 
-  if (!exitingVerify?.id) {
+  if (!existingVerify?.id) {
     return {
       status: "error",
       message: "Page Error, Masukan kode OTP melalui link yang kami kirimkan melalui email",
@@ -73,15 +73,16 @@ export async function otpAction(state: unknown, formData: FormData) {
   await UserServices.updateVerificationUser(userId);
 
   // Generate code lagi supaya code yang sebelumnya tidak bisa digunakan lagi.
+  const now = new Date().getTime();
   const newCode = generateVerificationCode();
-  await UserServices.updateCode(userId, newCode);
+  await UserServices.updateCode(userId, newCode, now);
 
   // JWT Token
   const payload = {
-    id: exitingVerify.id,
-    name: exitingVerify.name,
-    email: exitingVerify.email,
-    avatarUrl: exitingVerify.avatarUrl,
+    id: existingVerify.id,
+    name: existingVerify.name,
+    email: existingVerify.email,
+    avatarUrl: existingVerify.avatarUrl,
   };
 
   const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);

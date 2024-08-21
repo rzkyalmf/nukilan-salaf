@@ -11,7 +11,7 @@ export default function Home() {
     <main className="">
       <Header />
       <div>
-        <div className="mx-auto my-72 flex flex-col items-center justify-center gap-5">
+        <div className="mx-auto my-72 flex flex-col items-center justify-center">
           <Image
             src={Logo3}
             alt="logo"
@@ -19,11 +19,15 @@ export default function Home() {
             width={1000}
             height={1000}
           />
-          <h1 className="font-philosopher gradient-ns w-[800px] p-3 text-center">Ciptakan Konten Islami dengan Mudah</h1>
-          <h4 className="font-normal tracking-normal text-gray-500">Desain otomatis untuk konten Islami Anda</h4>
+          <h1 className="font-philosopher gradient-ns mb-3 p-3 text-center">
+            Konsultasi dengan <br /> Ahli Ilmu Terpercaya
+          </h1>
+          <h4 className="text-center font-light tracking-normal text-gray-500">
+            &ldquo;Konsultasikan persoalan dunia & akhirat Anda dengan Ustadz tepercaya&ldquo;
+          </h4>
           <Link href={"/login"}>
-            <Button size="lg" variant="primary" className="w-[140px] px-4 py-4">
-              Buat Konten
+            <Button size="lg" variant="primary" className="my-5 w-[160px] px-4 py-4">
+              Jadwalkan Segera
             </Button>
           </Link>
         </div>

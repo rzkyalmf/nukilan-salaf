@@ -18,7 +18,7 @@ interface Props {
 export default function Page({ params }: Props) {
   const { userId } = params;
   const [state, formAction, pending] = useActionState(verifyResetPassAction, null);
-  const [_stateOtp, updateFormAction, pendingOtp] = useActionState(newCodeAction, null);
+  const [stateOtp, updateFormAction, pendingOtp] = useActionState(newCodeAction, null);
 
   const getErrorMessage = () => {
     if (state?.status === "error") {
@@ -41,8 +41,8 @@ export default function Page({ params }: Props) {
       </section>
 
       <form action={formAction} className="space-y-2">
-        <input name="id" value={userId} hidden />
         <div className="relative">
+          <input name="id" value={userId} hidden />
           <KeyRound className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
           <Input className="pl-11 text-slate-600" name="code" placeholder="Kode OTP" defaultValue={state?.data.code} />
         </div>
@@ -63,6 +63,9 @@ export default function Page({ params }: Props) {
           <button disabled={pendingOtp} className="font-normal hover:text-[#C2B59B]">
             {pendingOtp ? "Telah terkirim..." : "Kirim Ulang"}
           </button>
+          {stateOtp?.status === "error" && <p className="msg msg-error my-5">{stateOtp.message}</p>}
+          {stateOtp?.status === "success" && <p className="msg msg-success my-5">{stateOtp.message}</p>}
+          {stateOtp?.errors?.userId && <p className="msg msg-error">{stateOtp.errors.userId}</p>}
         </p>
       </form>
     </>
