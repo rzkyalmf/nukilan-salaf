@@ -93,5 +93,5 @@ export async function otpAction(state: unknown, formData: FormData) {
     path: "/",
   });
 
-  redirect("/dasboard");
+  redirect("/dashboard/konsultasi");
 }
