@@ -12,15 +12,20 @@ export default function Layout({ children }: React.PropsWithChildren) {
         <Image src={Logo3} alt="logo" className="my-5 ml-3 w-12" priority width={100} height={100} />
         <section>
           <h5 className="ml-3 py-3 text-sm font-light tracking-wide text-slate-500">Menu Platform</h5>
-          <Menu label="Dashboard" href="/dashboard/konsultasi" icon={<House size={18} />} />
-          <Menu label="Konsultasi" href="/dashboard/konsultasi" icon={<MessagesSquare size={18} />} />
+          <Menu label="Dashboard" href="/dashboard/consultant" icon={<House size={18} />} />
+          <Menu label="Konsultasi" href="/dashboard/consultant" icon={<MessagesSquare size={18} />} />
           <Menu label="Jadwal" href="/dashboard/jadwal" icon={<CalendarDays size={18} />} />
         </section>
         <section>
+          <h5 className="ml-3 py-3 text-sm font-light tracking-wide text-slate-500">Konten Medsos</h5>
+          <Menu label="Konten" href="/admin/content" icon={<SquarePen size={18} />} />
+        </section>
+        <section>
           <h5 className="ml-3 py-3 text-sm font-light tracking-wide text-slate-500">Menu Admin</h5>
-          <Menu label="Users" href="/admin/users" icon={<UserRoundCog size={18} />} />
+          <Menu label="Add Consultant" href="/admin/consultant/new" icon={<UserRoundCog size={18} />} />
+          <Menu label="Schedule Consultant" href="/admin/add-jadwal" icon={<UserRoundCog size={18} />} />
           <Menu label="Analytics" href="/admin/analytics" icon={<ChartNoAxesCombined size={18} />} />
-          <Menu label="Content" href="/admin/content" icon={<SquarePen size={18} />} />
+          <Menu label="Users" href="/admin/users" icon={<UserRoundCog size={18} />} />
         </section>
       </aside>
       <main className="h-screen w-[calc(100%-260px)] overflow-y-auto bg-white">{children}</main>

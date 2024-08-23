@@ -23,7 +23,7 @@ export default function Home() {
             Konsultasi dengan <br /> Ahli Ilmu Terpercaya
           </h1>
           <h4 className="text-center font-light tracking-normal text-gray-500">
-            &ldquo;Konsultasikan persoalan dunia & akhirat Anda dengan Ustadz tepercaya&ldquo;
+            &ldquo;Konsultasikan persoalan dunia & akhirat Anda dengan Orang tepercaya&ldquo;
           </h4>
           <Link href={"/login"}>
             <Button size="lg" variant="primary" className="my-5 w-[160px] px-4 py-4">

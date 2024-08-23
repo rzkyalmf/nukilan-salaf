@@ -14,6 +14,7 @@ enum Role {
 
 model User {
   id String @id @default(cuid())
+
   name String
   email String
   phoneNumber String?
@@ -21,11 +22,13 @@ model User {
   avatarUrl String?
   isVerified Boolean @default(false)
   onBanned Boolean @default(false)
+
   role Role @default(USER)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   verificationCode VerificationCode?
-  quotes Quotes[]
+  schedule Schedule[]
 }
 
 model VerificationCode {
@@ -37,15 +40,27 @@ model VerificationCode {
   lastSentAt DateTime @default(now())
 }
 
-model Quotes {
-  id String @id @default(cuid())
-  title String
-  author String
-  content String
-  source String
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Consultant {
+  id String @id @default(uuid())
+
+  name String
+  expertise String
+  description String
+  price Int
+  image String
+
+  schedules Schedule[]
 }
 
+model Schedule {
+  id String @id @default(uuid())
+
+  time DateTime
+  isAvailable Boolean @default(true)
+
+  consultantId String
+  consultant Consultant @relation(fields: [consultantId], references: [id])
+  userId String?
+  user User? @relation(fields: [userId], references: [id])
+  
+}
