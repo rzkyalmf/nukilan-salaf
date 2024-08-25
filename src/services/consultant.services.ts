@@ -19,4 +19,39 @@ export const ConsultantServices = {
       console.log(error);
     }
   },
+
+  updateConsultant: async (id: string, name: string, expertise: string, description: string, price: number, image?: string) => {
+    await prisma.consultant.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        expertise,
+        description,
+        price,
+        image,
+      },
+    });
+  },
+
+  getAllConsultant: async () => {
+    const data = await prisma.consultant.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    return data;
+  },
+
+  findConsultant: async (id: string) => {
+    const user = await prisma.consultant.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  },
 };

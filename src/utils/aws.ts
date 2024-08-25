@@ -1,6 +1,6 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { S3Client } from "@aws-sdk/client-s3";
 
-const s3Client = new S3Client({
+export const s3Client = new S3Client({
   region: "apac",
   endpoint: process.env.R2_S3API_URL,
   credentials: {
@@ -9,29 +9,23 @@ const s3Client = new S3Client({
   },
 });
 
-interface UploadFileArgs {
-  key: string;
-  folder: string;
-  body: File | Uint8Array;
-}
+// export async function uploadFile(args: UploadFileArgs) {
+//   try {
+//     const buffer = args.body instanceof File ? Buffer.from(await args.body.arrayBuffer()) : args.body;
+//     const contentType = args.body instanceof File ? "image/png" : "application/pdf";
 
-export async function uploadFile(args: UploadFileArgs) {
-  try {
-    const buffer = args.body instanceof File ? Buffer.from(await args.body.arrayBuffer()) : args.body;
-    const contentType = args.body instanceof File ? "image/png" : "application/pdf";
+//     const data = await s3Client.send(
+//       new PutObjectCommand({
+//         Bucket: "nukilansalaf",
+//         Key: `${args.folder}/${args.key}`,
+//         ContentType: contentType,
+//         Body: buffer,
+//       }),
+//     );
 
-    const data = await s3Client.send(
-      new PutObjectCommand({
-        Bucket: "nukilansalaf",
-        Key: `${args.folder}/${args.key}`,
-        ContentType: contentType,
-        Body: buffer,
-      }),
-    );
-
-    return { success: true, data };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+//     return { success: true, data };
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }

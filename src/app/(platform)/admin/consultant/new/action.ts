@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 import { ConsultantServices } from "@/services/consultant.services";
-import { uploadFile } from "@/utils/aws";
+import { S3Services } from "@/services/s3.services";
 
 const addConsultantSchema = z.object({
   name: z.string(),
@@ -59,11 +59,11 @@ export async function addConsultantAction(state: unknown, formData: FormData) {
   }
 
   // upload file R2
-  await uploadFile({
+  await S3Services.uploadFile({
     key: newConsultant.image,
     body: validation.data.image,
-    folder: `pp-consultant/${newConsultant.name}`,
+    folder: `pp-consultant/${newConsultant.id}`,
   });
 
-  redirect("/admin/consultant/new");
+  redirect("/admin/consultant/");
 }

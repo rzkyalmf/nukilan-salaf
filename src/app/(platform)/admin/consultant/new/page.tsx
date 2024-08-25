@@ -1,6 +1,8 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { ChangeEvent, useActionState, useState } from "react";
 
 import { Button } from "@/components/isomorphic/button";
@@ -25,7 +27,7 @@ export default function Page() {
     <main className="flex h-screen items-center justify-center">
       <div className="w-[400px] space-y-6">
         <>
-          <section className="flex items-center justify-between">
+          <section className="flex items-center justify-center text-center">
             <div>
               <h2 className="gradient-ns font-philosopher text-4xl font-bold tracking-tight">Add Consultant</h2>
               <p className="font-light tracking-normal text-gray-500">Lengkapi form dibawah ini!</p>
@@ -61,6 +63,16 @@ export default function Page() {
 
             <Button disabled={pending}>Submit</Button>
           </form>
+
+          <div className="flex">
+            <Link
+              href="/admin/consultant/"
+              className="inline-flex items-center font-light tracking-normal text-gray-500 hover:text-[#C2B59B]"
+            >
+              <ArrowLeft size={16} className="mr-2" />
+              Kembali ke Menu
+            </Link>
+          </div>
         </>
       </div>
     </main>

@@ -3,6 +3,12 @@ import { User } from "@prisma/client";
 import prisma from "@/utils/prisma";
 
 export const UserServices = {
+  getAllUsers: async () => {
+    const users = await prisma.user.findMany();
+
+    return users;
+  },
+
   findUser: async (idOrEmail: string) => {
     const user = await prisma.user.findFirst({
       where: {
