@@ -61,34 +61,23 @@ export async function editConsultantAction(_state: unknown, formData: FormData) 
 
   const find = await ConsultantServices.findConsultant(id);
 
-  if (find?.image) {
-    try {
-      await S3Services.deleteFile({
-        folder: `pp-consultant/${id}`,
-        key: find.image,
-      });
-    } catch (error) {
-      console.error("Error deleting old file:", error);
-    }
+  if (!find) {
+    return {
+      status: "error",
+      message: "Konsultan tidak ditemukan!",
+    };
   }
+
+  await S3Services.deleteFile({ folder: `pp-consultant/${id}`, key: find.image });
 
   await ConsultantServices.updateConsultant(id, name, expertise, description, price, validation.data.image.name);
 
   // upload file R2
-  try {
-    await S3Services.uploadFile({
-      key: validation.data.image.name,
-      body: validation.data.image,
-      folder: `pp-consultant/${id}`,
-    });
-  } catch (error) {
-    console.error("Error uploading new file:", error);
-    // Tangani error upload di sini
-    return {
-      status: "error",
-      message: "Gagal mengunggah file baru.",
-    };
-  }
+  await S3Services.uploadFile({
+    key: validation.data.image.name,
+    body: validation.data.image,
+    folder: `pp-consultant/${id}`,
+  });
 
   redirect("/admin/consultant/");
 }
