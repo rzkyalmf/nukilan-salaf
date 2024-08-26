@@ -60,7 +60,7 @@ export default async function Page() {
                   <Link href="#" className="w-full">
                     <Button size="sm" variant="primary" className="flex w-full items-center justify-center">
                       {/* <Calendar className="mr-2 h-4 w-4" /> */}
-                      Atur Jadwal
+                      Lihat Jadwal Yang Tersedia
                     </Button>
                   </Link>
                 </div>
