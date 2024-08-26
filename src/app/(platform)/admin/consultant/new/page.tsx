@@ -46,7 +46,7 @@ export default function Page() {
             </div>
 
             <div>
-              <label className="font-normal text-gray-400">Deskripsi :</label>
+              <label className="font-normal text-gray-400">Latar belakang :</label>
               <Textarea name="description" className="h-32" />
             </div>
 
