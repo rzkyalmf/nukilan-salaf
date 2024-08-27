@@ -7,7 +7,7 @@ import React, { useCallback, useRef, useState } from "react";
 
 import Logo from "@/public/images/Logo.png";
 
-import { Button } from "../isomorphic/button";
+import { Button } from "./isomorphic/button";
 
 interface IHeaderItem {
   label: string;

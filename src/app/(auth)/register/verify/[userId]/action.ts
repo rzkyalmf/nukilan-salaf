@@ -82,6 +82,7 @@ export async function otpAction(state: unknown, formData: FormData) {
     id: existingVerify.id,
     name: existingVerify.name,
     email: existingVerify.email,
+    role: existingVerify.role,
     avatarUrl: existingVerify.avatarUrl,
   };
 

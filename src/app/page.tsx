@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Button } from "@/components/isomorphic/button";
-import { Footer } from "@/components/shared/footer";
-import { Header } from "@/components/shared/header";
 import Logo3 from "@/public/images/Logo3.png";
 
 export default function Home() {

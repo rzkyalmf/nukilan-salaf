@@ -83,6 +83,7 @@ export async function loginAction(state: unknown, formData: FormData) {
     id: user.id,
     name: user.name,
     email: user.email,
+    role: user.role,
     avatarUrl: user.avatarUrl,
   };
 
@@ -94,5 +95,5 @@ export async function loginAction(state: unknown, formData: FormData) {
     path: "/",
   });
 
-  redirect("/dashboard/consultant");
+  redirect("/dashboard/");
 }

@@ -2,36 +2,24 @@
 
 import React from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/isomorphic/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 
-const BasicShadcnForm: React.FC = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("Form submitted");
-  };
-
+export default function Page() {
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-md space-y-4 p-4">
-      <div className="space-y-2">
-        <Label htmlFor="date">Tanggal</Label>
+    <form className="mx-auto w-full max-w-md space-y-4 p-4">
+      <div>
+        <label htmlFor="date">Tanggal</label>
         <Input type="date" id="date" name="date" />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="time">Waktu</Label>
+      <div>
+        <label htmlFor="time">Waktu</label>
         <Input type="time" id="time" name="time" />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="description">Deskripsi</Label>
-        <Textarea id="description" name="description" />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="description">Deskripsi</Label>
+      <div>
+        <label htmlFor="description">Deskripsi</label>
         <Input type="text" id="description" name="description" />
       </div>
 
@@ -40,6 +28,4 @@ const BasicShadcnForm: React.FC = () => {
       </Button>
     </form>
   );
-};
-
-export default BasicShadcnForm;
+}

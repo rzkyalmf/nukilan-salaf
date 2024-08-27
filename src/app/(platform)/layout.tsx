@@ -3,8 +3,8 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 
-import { Button } from "@/components/isomorphic/button";
 import { Menu } from "@/components/isomorphic/menu";
+import { LogoutButton } from "@/components/LogoutButton";
 import serverAuth from "@/libs/server-auth";
 import Logo3 from "@/public/images/Logo3.png";
 
@@ -26,16 +26,18 @@ export default function Layout({ children }: React.PropsWithChildren) {
             <Menu label="Konsultasi" href="/dashboard/consultant" icon={<MessagesSquare size={18} />} />
             <Menu label="Jadwal" href="/dashboard/jadwal" icon={<CalendarDays size={18} />} />
           </section>
-          <section>
-            <h5 className="ml-3 py-3 text-sm font-light tracking-wide text-slate-500">Admin Menu</h5>
-            <Menu label="Edit Consultant" href="/admin/consultant/" icon={<UserRoundCog size={18} />} />
-            <Menu label="Users" href="/admin/users" icon={<CircleUserRound size={18} />} />
-            <Menu label="Analytics" href="/admin/analytics" icon={<ChartNoAxesCombined size={18} />} />
-            <Menu label="Konten" href="/admin/content" icon={<SquarePen size={18} />} />
-          </section>
+          {auth.role === "ADMIN" && (
+            <section>
+              <h5 className="ml-3 py-3 text-sm font-light tracking-wide text-slate-500">Admin Menu</h5>
+              <Menu label="Edit Consultant" href="/admin/consultant/" icon={<UserRoundCog size={18} />} />
+              <Menu label="Users" href="/admin/users" icon={<CircleUserRound size={18} />} />
+              <Menu label="Analytics" href="/admin/analytics" icon={<ChartNoAxesCombined size={18} />} />
+              <Menu label="Konten" href="/admin/content" icon={<SquarePen size={18} />} />
+            </section>
+          )}
         </div>
         <section className="mb-12 mt-auto">
-          <Button className="w-full">Keluar</Button>
+          <LogoutButton />
         </section>
       </aside>
       <main className="h-screen w-[calc(100%-260px)] overflow-y-auto bg-white">{children}</main>

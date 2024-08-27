@@ -6,7 +6,7 @@ interface AuthPayload extends JwtPayload {
   email: string;
   name: string;
   avatarUrl: string;
-  role: "admin" | "user";
+  role: "ADMIN" | "USER";
 }
 
 export default function serverAuth() {
