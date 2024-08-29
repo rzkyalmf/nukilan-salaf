@@ -54,4 +54,25 @@ export const ConsultantServices = {
 
     return user;
   },
+
+  createSchedule: async (consultantId: string, dateTime: string, timeZone: string) => {
+    return await prisma.schedule.create({
+      data: {
+        consultantId,
+        dateTime,
+        timeZone,
+        isAvailable: true,
+      },
+    });
+  },
+
+  getAllSchedule: async (consultantId: string) => {
+    const schedules = await prisma.schedule.findMany({
+      where: {
+        consultantId,
+      },
+    });
+
+    return schedules;
+  },
 };

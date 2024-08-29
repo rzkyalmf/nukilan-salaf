@@ -13,7 +13,7 @@ const TableHeader: React.FC = () => (
       <th>Nama</th>
       <th className="hidden sm:table-cell">Email</th>
       <th className="hidden md:table-cell">Terverifikasi</th>
-      <th className="hidden lg:table-cell">Kursus Terdaftar</th>
+      <th className="hidden lg:table-cell">Total Konsul</th>
       <th className="hidden xl:table-cell">Peran</th>
       <th>Aksi</th>
     </tr>

@@ -55,12 +55,12 @@ model Consultant {
 model Schedule {
   id String @id @default(uuid())
 
-  time DateTime
+  dateTime DateTime
+  timeZone String?
   isAvailable Boolean @default(true)
 
   consultantId String
   consultant Consultant @relation(fields: [consultantId], references: [id])
   userId String?
   user User? @relation(fields: [userId], references: [id])
-  
 }

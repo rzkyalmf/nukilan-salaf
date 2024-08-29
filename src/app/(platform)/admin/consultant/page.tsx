@@ -50,20 +50,6 @@ export default async function Page() {
                   </Link>
                 </div>
 
-                {/* <div className="mb-2">
-                  <div className="pb-2 text-xs font-light tracking-normal text-gray-600 sm:text-sm">Kategori :</div>
-                  <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
-                    {[consultant.expertise, "Ruqyah", "Totok Punggung", "Hadist", "Thibbun Nabawi"].map((category, index) => (
-                      <div
-                        key={index}
-                        className="msg flex justify-center p-1 text-center text-xs font-light tracking-normal text-gray-600"
-                      >
-                        {category}
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
                 <div className="mt-auto flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
                   <Link href="#" className="w-full sm:w-1/2">
                     <Button size="sm" variant="secondary" className="flex w-full items-center justify-center">
@@ -71,7 +57,7 @@ export default async function Page() {
                       Stats
                     </Button>
                   </Link>
-                  <Link href="/admin/consultant/jadwal" className="w-full sm:w-1/2">
+                  <Link href={`/admin/consultant/jadwal/${consultant.id}`} className="w-full sm:w-1/2">
                     <Button size="sm" variant="secondary" className="flex w-full items-center justify-center">
                       <Calendar className="mr-2 h-4 w-4" />
                       Jadwal
