@@ -12,16 +12,39 @@ import { Textarea } from "@/components/isomorphic/textarea";
 
 import { addConsultantAction } from "./action";
 
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
 export default function Page() {
   const [preview, setPreview] = useState("");
-  const [_state, formAction, pending] = useActionState(addConsultantAction, null);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [state, formAction, pending] = useActionState(addConsultantAction, null);
 
   function handleCreatePreview(event: ChangeEvent<HTMLInputElement>) {
-    if (!event.target.files) return;
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-    const file = event.target.files[0];
-    setPreview(URL.createObjectURL(file));
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError("Ukuran file tidak boleh lebih dari 2MB!");
+      setPreview("");
+      event.target.value = ""; // Reset input file
+    } else {
+      setFileError(null);
+      setPreview(URL.createObjectURL(file));
+    }
   }
+
+  const getErrorMessage = () => {
+    if (state?.status === "error") {
+      if (state.message) return state.message;
+      if (state.errors?.name) return state.errors.name;
+      if (state.errors?.expertise) return state.errors.expertise;
+      if (state.errors?.description) return state.errors.description;
+      if (state.errors?.price) return state.errors.price;
+    }
+    return null;
+  };
+
+  const errorMessage = getErrorMessage();
 
   return (
     <main className="flex h-screen items-center justify-center">
@@ -37,31 +60,39 @@ export default function Page() {
           <form action={formAction} className="space-y-4">
             <div>
               <label className="font-normal text-gray-400">Nama :</label>
-              <Input name="name" />
+              <Input defaultValue={state?.data?.name} name="name" />
             </div>
 
             <div>
               <label className="font-normal text-gray-400">Keahlian :</label>
-              <Input name="expertise" />
+              <Input name="expertise" defaultValue={state?.data?.expertise} />
             </div>
 
             <div>
               <label className="font-normal text-gray-400">Latar belakang :</label>
-              <Textarea name="description" className="h-32" />
+              <Textarea name="description" className="h-32" defaultValue={state?.data?.description} />
             </div>
 
             <div>
               <label className="font-normal text-gray-400">Biaya :</label>
-              <Input name="price" />
+              <Input name="price" defaultValue="" />
             </div>
 
             <div>
               <label className="font-normal text-gray-400">Foto Profil :</label>
-              <FileInput name="image" onChange={handleCreatePreview} />
+              <FileInput name="image" onChange={handleCreatePreview} defaultValue="" />
               {preview ? <Image src={preview} alt="preview" width={150} height={150} className="pt-3" /> : null}
             </div>
 
             <Button disabled={pending}>Submit</Button>
+
+            {fileError && <p className="text-red-500">{fileError}</p>}
+
+            {errorMessage && (
+              <div className="mt-4 text-red-600" role="alert">
+                <p>{errorMessage}</p>
+              </div>
+            )}
           </form>
 
           <div className="flex">

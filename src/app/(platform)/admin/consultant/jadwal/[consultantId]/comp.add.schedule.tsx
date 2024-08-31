@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const AddSchedule: React.FC<Props> = ({ id }) => {
-  const [_state, formAction, pending] = useActionState(addScheduleAction, null);
+  const [state, formAction, pending] = useActionState(addScheduleAction, null);
 
   return (
     <>
@@ -51,7 +51,13 @@ export const AddSchedule: React.FC<Props> = ({ id }) => {
         <Button variant="primary" disabled={pending}>
           Submit
         </Button>
+
+        {state?.status === "error" && <div className=" text-red-500 " role="alert">{state.message}</div>}
+        {state?.status === "success" && <div className=" text-green-500 " role="alert">{state.message}</div>}
       </form>
+
+      
+
       <div className="flex">
         <Link
           href="/admin/consultant/"

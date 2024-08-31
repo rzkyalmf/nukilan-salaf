@@ -8,10 +8,10 @@ import { S3Services } from "@/services/s3.services";
 
 const editConsultantSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  expertise: z.string(),
+  name: z.string().min(1),
+  expertise: z.string().min(1),
   description: z.string().min(1),
-  price: z.number(),
+  price: z.number().min(1),
   image: z.instanceof(File),
 });
 

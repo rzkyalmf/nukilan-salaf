@@ -112,4 +112,7 @@
   .msg-success {
     @apply bg-emerald-100 text-emerald-600;
   }
+  .msg-ns {
+    @apply bg-[#fffaf1] text-[#746C5B];
+  }
 }
