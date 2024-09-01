@@ -50,8 +50,8 @@ export const AllSchedule: React.FC<Props> = async ({ consultantId }) => {
                 <td>{formatTime(schedule.dateTime)}</td>
                 <td>{schedule.timeZone}</td>
                 <td>
-                  <span className={schedule.isAvailable && !isExpired ? "text-green-600" : "text-red-600"}>
-                    {isExpired ? "Kadaluarsa" : schedule.isAvailable ? "Tersedia" : "Tidak Tersedia"}
+                  <span className={isExpired ? "text-yellow-600" : schedule.isAvailable ? "text-green-600" : "text-red-600"}>
+                    {isExpired ? "Kadaluarsa" : schedule.isAvailable ? "Tersedia" : "Terjadwalkan"}
                   </span>
                 </td>
                 <td className="border-b px-4 py-2 text-center">

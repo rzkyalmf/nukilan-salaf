@@ -1,4 +1,5 @@
 import { Schedule } from "@prisma/client";
+import dayjs from "dayjs";
 import { Calendar } from "lucide-react";
 import React from "react";
 
@@ -29,35 +30,38 @@ export const Schedules: React.FC<Props> = async ({ consultantId }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedSchedules.map((schedule: Schedule, index: number) => (
-            <tr key={schedule.id} className="border-b bg-white text-center font-light tracking-normal text-gray-500 hover:bg-slate-50">
-              <td className="px-4 py-4">{index + 1}</td>
-              <td className="whitespace-nowrap px-4 py-2">{formatDay(schedule.dateTime)}</td>
-              <td className="whitespace-nowrap px-4 py-2">{formatDate(schedule.dateTime)}</td>
-              <td className="whitespace-nowrap px-4 py-2">{formatTime(schedule.dateTime)}</td>
-              <td className="whitespace-nowrap px-4 py-2">{schedule.timeZone}</td>
-              <td className="px-4 py-2">
-                <span
-                  className={`rounded-full px-2 py-1 text-sm ${
-                    schedule.isAvailable ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {schedule.isAvailable ? "Tersedia" : "Tidak Tersedia"}
-                </span>
-              </td>
-              <td className="px-4 py-2 text-center">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={`mx-auto flex items-center justify-center ${schedule.isAvailable ? "" : "cursor-not-allowed opacity-50"}`}
-                  disabled={!schedule.isAvailable}
-                >
-                  <Calendar className="mr-2 h-4 w-4" />
-                  Booking
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {sortedSchedules.map((schedule: Schedule, index: number) => {
+            const isExpired = dayjs().isAfter(dayjs(schedule.expiryDateTime));
+
+            return (
+              <tr
+                key={schedule.id}
+                className="border-b bg-white text-center font-light tracking-normal text-gray-500 hover:bg-slate-50"
+              >
+                <td className="px-4 py-4">{index + 1}</td>
+                <td className="whitespace-nowrap px-4 py-2">{formatDay(schedule.dateTime)}</td>
+                <td className="whitespace-nowrap px-4 py-2">{formatDate(schedule.dateTime)}</td>
+                <td className="whitespace-nowrap px-4 py-2">{formatTime(schedule.dateTime)}</td>
+                <td className="whitespace-nowrap px-4 py-2">{schedule.timeZone}</td>
+                <td className="px-4 py-2">
+                  <span className={isExpired ? "text-yellow-600" : schedule.isAvailable ? "text-green-600" : "text-red-600"}>
+                    {isExpired ? "Kadaluarsa" : schedule.isAvailable ? "Tersedia" : "Terjadwalkan"}
+                  </span>
+                </td>
+                <td className="px-4 py-2 text-center">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={`mx-auto flex items-center justify-center ${isExpired || !schedule.isAvailable ? "cursor-not-allowed opacity-50" : ""}`}
+                    disabled={isExpired || !schedule.isAvailable}
+                  >
+                    <Calendar className="mr-2 h-4 w-4" />
+                    Booking
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
