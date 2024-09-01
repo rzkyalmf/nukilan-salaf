@@ -20,7 +20,7 @@ async function logoutAction() {
 export function LogoutButton() {
   return (
     <form action={logoutAction}>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="outline-none">
         Logout
       </Button>
     </form>

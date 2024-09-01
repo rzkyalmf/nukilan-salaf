@@ -56,7 +56,8 @@ model Schedule {
   id String @id @default(uuid())
 
   dateTime DateTime
-  timeZone String?
+  expiryDateTime DateTime
+  timeZone String
   isAvailable Boolean @default(true)
 
   consultantId String

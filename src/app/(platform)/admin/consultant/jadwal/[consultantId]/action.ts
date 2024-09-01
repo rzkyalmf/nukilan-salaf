@@ -68,7 +68,7 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
     };
   }
 
-  // Cek apakah waktu yang diinputkan kurang dari 2 hari dari sekarang
+  // // Cek apakah waktu yang diinputkan kurang dari 2 hari dari sekarang
   if (localDateTime.diff(now, "day") < 2) {
     return {
       status: "error",
@@ -82,22 +82,15 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
     };
   }
 
+  // Hitung waktu kadaluarsa (1 hari sebelum jadwal)
+  const expiryDateTime = localDateTime.subtract(1, "day");
+
   // Format untuk disimpan di database (dalam zona waktu lokal yang dipilih)
   const dateTimeString = localDateTime.format("YYYY-MM-DDTHH:mm:ssZ");
+  const expiryDateTimeString = expiryDateTime.format("YYYY-MM-DDTHH:mm:ssZ");
 
-  // UTC time untuk perbandingan
-  const utcTime = localDateTime.utc().format("YYYY-MM-DDTHH:mm:ss[Z]");
-
-  console.log({
-    original: `${date} ${time}`,
-    timeZone,
-    localTime: dateTimeString,
-    utcTime,
-    diffFromUTC: localDateTime.utcOffset() / 60,
-  });
-
-  // Simpan ke database dengan waktu lokal dan informasi zona waktu
-  const result = await ConsultantServices.createSchedule(consultantId, dateTimeString, timeZone);
+  // Simpan ke database dengan waktu lokal, informasi zona waktu, dan waktu kadaluarsa
+  const result = await ConsultantServices.createSchedule(consultantId, dateTimeString, expiryDateTimeString, timeZone);
   console.log("Database result:", result);
 
   revalidatePath("/admin/consultant/jadwal/[consultantId]", "page");

@@ -1,20 +1,13 @@
 import { BarChart, Calendar, PlusCircle, UserPen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { Button } from "@/components/isomorphic/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import serverAuth from "@/libs/server-auth";
 import { ConsultantServices } from "@/services/consultant.services";
 
 export default async function Page() {
-  const consultants = await ConsultantServices.getAllConsultant();
-  const auth = serverAuth();
-
-  if (!auth) {
-    redirect("/login");
-  }
+  const consultants = await ConsultantServices.getAllConsultantWithSchedule();
 
   return (
     <main className="container mx-auto space-y-8 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-14">

@@ -35,14 +35,20 @@ export const ConsultantServices = {
     });
   },
 
-  getAllConsultant: async () => {
-    const data = await prisma.consultant.findMany({
-      orderBy: {
-        name: "asc",
+  getAllConsultantWithSchedule: async () => {
+    return await prisma.consultant.findMany({
+      include: {
+        _count: {
+          select: {
+            schedules: {
+              where: {
+                isAvailable: true,
+              },
+            },
+          },
+        },
       },
     });
-
-    return data;
   },
 
   findConsultant: async (id: string) => {
@@ -55,11 +61,12 @@ export const ConsultantServices = {
     return user;
   },
 
-  createSchedule: async (consultantId: string, dateTime: string, timeZone: string) => {
+  createSchedule: async (consultantId: string, dateTime: string, expiryDateTime: string, timeZone: string) => {
     return await prisma.schedule.create({
       data: {
         consultantId,
         dateTime,
+        expiryDateTime,
         timeZone,
         isAvailable: true,
       },
