@@ -7,7 +7,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ConsultantServices } from "@/services/consultant.services";
 
 export default async function Page() {
-  const consultants = await ConsultantServices.getAllConsultantWithSchedule();
+  const consultants = await ConsultantServices.getAllConsultantWithAvailableScheduleCount();
 
   return (
     <main className="container mx-auto space-y-8 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-14">

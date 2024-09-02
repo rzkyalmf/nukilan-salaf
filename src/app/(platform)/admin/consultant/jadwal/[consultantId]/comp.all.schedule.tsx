@@ -9,7 +9,6 @@ import { ConsultantServices } from "@/services/consultant.services";
 interface Props {
   consultantId: string;
 }
-
 export const AllSchedule: React.FC<Props> = async ({ consultantId }) => {
   const allSchedules: Schedule[] = await ConsultantServices.getAllSchedule(consultantId);
   const consultant = await ConsultantServices.findConsultant(consultantId);
@@ -38,7 +37,6 @@ export const AllSchedule: React.FC<Props> = async ({ consultantId }) => {
         <tbody>
           {sortedSchedules.map((schedule: Schedule, index: number) => {
             const isExpired = dayjs().isAfter(dayjs(schedule.expiryDateTime));
-
             return (
               <tr
                 key={schedule.id}

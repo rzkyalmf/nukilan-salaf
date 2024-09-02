@@ -1,11 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import serverAuth from "@/libs/server-auth";
 import { ConsultantServices } from "@/services/consultant.services";
 
 export default async function Page() {
-  const consultants = await ConsultantServices.getAllConsultantWithSchedule();
+  const auth = serverAuth();
+
+  if (!auth) {
+    redirect("/login");
+  }
+
+  const consultants = await ConsultantServices.getAllConsultantWithAvailableScheduleCount();
 
   return (
     <main className="container mx-auto space-y-8 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-14">
@@ -22,12 +30,10 @@ export default async function Page() {
                     objectFit="cover"
                   />
                 </AspectRatio>
-
                 <div className="flex flex-grow flex-col gap-2 bg-white p-5 py-4">
                   <div className="flex items-center justify-start gap-2">
                     <h5 className="text-md font-normal tracking-normal text-black sm:text-xl">{consultant.name}</h5>
                   </div>
-
                   <div className="mt-auto flex flex-row items-center justify-start gap-2 sm:flex-row sm:space-y-0">
                     <div className="msg msg-ns py-1.5 text-sm">{consultant._count.schedules} Jadwal</div>
                     <div className="py-1.5 text-sm font-normal tracking-normal text-gray-500">Tersedia</div>

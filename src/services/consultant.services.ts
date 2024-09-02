@@ -35,7 +35,7 @@ export const ConsultantServices = {
     });
   },
 
-  getAllConsultantWithSchedule: async () => {
+  getAllConsultantWithAvailableScheduleCount: async () => {
     return await prisma.consultant.findMany({
       include: {
         _count: {
@@ -68,7 +68,6 @@ export const ConsultantServices = {
         dateTime,
         expiryDateTime,
         timeZone,
-        isAvailable: true,
       },
     });
   },
