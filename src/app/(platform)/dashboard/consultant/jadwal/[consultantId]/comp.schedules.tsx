@@ -1,19 +1,29 @@
+"use client";
+
 import { Schedule } from "@prisma/client";
 import dayjs from "dayjs";
 import { Calendar } from "lucide-react";
-import React from "react";
+import React, { useActionState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { formatDate, formatDay, formatTime } from "@/libs/dates-format";
-import { ConsultantServices } from "@/services/consultant.services";
+
+import { bookingAction } from "./action";
 
 interface Props {
+  schedules: Schedule[] | undefined;
+  userId: string | undefined;
   consultantId: string;
 }
 
-export const Schedules: React.FC<Props> = async ({ consultantId }) => {
-  const allSchedules: Schedule[] = await ConsultantServices.getAllSchedule(consultantId);
-  const sortedSchedules = allSchedules.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
+export const Schedules: React.FC<Props> = ({ schedules, userId, consultantId }) => {
+  const [_state, formAction, pending] = useActionState(bookingAction, null);
+
+  if (!schedules || schedules.length === 0) {
+    return <p>Tidak ada jadwal yang tersedia saat ini.</p>;
+  }
+
+  const sortedSchedules = schedules.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
 
   return (
     <div className="overflow-x-auto">
@@ -44,20 +54,27 @@ export const Schedules: React.FC<Props> = async ({ consultantId }) => {
                 <td className="whitespace-nowrap px-4 py-2">{formatTime(schedule.dateTime)}</td>
                 <td className="whitespace-nowrap px-4 py-2">{schedule.timeZone}</td>
                 <td className="px-4 py-2">
-                  <span className={isExpired ? "text-yellow-600" : schedule.isAvailable ? "text-green-600" : "text-red-600"}>
-                    {isExpired ? "Kadaluarsa" : schedule.isAvailable ? "Tersedia" : "Terjadwalkan"}
+                  <span className={isExpired ? "text-yellow-600" : schedule.userId === null ? "text-green-600" : "text-red-600"}>
+                    {isExpired ? "Kadaluarsa" : schedule.userId === null ? "Tersedia" : "Terjadwalkan"}
                   </span>
                 </td>
+
                 <td className="px-4 py-2 text-center">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`mx-auto flex items-center justify-center ${isExpired || !schedule.isAvailable ? "cursor-not-allowed opacity-50" : ""}`}
-                    disabled={isExpired || !schedule.isAvailable}
-                  >
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Booking
-                  </Button>
+                  <form action={formAction}>
+                    <input name="scheduleId" value={schedule.id} hidden />
+                    <input name="userId" value={userId} hidden />
+                    <input name="consultantId" value={consultantId} hidden />
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className={`mx-auto flex items-center justify-center ${isExpired || schedule.userId ? "cursor-not-allowed opacity-50" : ""}`}
+                      disabled={isExpired || schedule.userId !== null || pending}
+                    >
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Booking
+                    </Button>
+                  </form>
                 </td>
               </tr>
             );

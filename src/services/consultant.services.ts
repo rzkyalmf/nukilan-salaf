@@ -76,9 +76,31 @@ export const ConsultantServices = {
     const schedules = await prisma.schedule.findMany({
       where: {
         consultantId,
+        isAvailable: true,
       },
     });
 
     return schedules;
+  },
+
+  findSchedule: async (id: string) => {
+    const schedule = await prisma.schedule.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return schedule;
+  },
+
+  updateSchedule: async (id: string, userId: string) => {
+    await prisma.schedule.update({
+      where: {
+        id,
+      },
+      data: {
+        userId,
+      },
+    });
   },
 };

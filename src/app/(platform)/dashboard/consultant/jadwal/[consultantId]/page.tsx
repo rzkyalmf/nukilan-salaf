@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+import serverAuth from "@/libs/server-auth";
 import { ConsultantServices } from "@/services/consultant.services";
 
 import { Schedules } from "./comp.schedules";
@@ -14,6 +15,11 @@ interface Props {
 export default async function Page({ params }: Props) {
   const { consultantId } = params;
   const consultant = await ConsultantServices.findConsultant(consultantId);
+  const allSchedules = await ConsultantServices.getAllSchedule(consultantId);
+  const auth = serverAuth();
+
+  // Pengurutan dilakukan di sini
+  const sortedSchedules = allSchedules.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
 
   return (
     <main className="flex min-h-screen flex-col p-4 sm:p-6 md:p-8 lg:p-10">
@@ -23,7 +29,7 @@ export default async function Page({ params }: Props) {
         </h2>
         <p className="mb-6 text-center text-sm font-light tracking-normal text-gray-500 sm:text-base">Bersama : {consultant?.name}</p>
         <div className="w-full overflow-x-auto">
-          <Schedules consultantId={consultantId} />
+          <Schedules schedules={sortedSchedules} userId={auth?.id} consultantId={consultantId} />
         </div>
         <div className="mt-6 flex">
           <Link
