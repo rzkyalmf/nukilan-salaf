@@ -20,7 +20,6 @@ export default async function Page({ params }: Props) {
         name={consultant?.name}
         expertise={consultant?.expertise}
         description={consultant?.description}
-        price={consultant?.price}
         image={consultant?.image}
       />
     </main>

@@ -11,7 +11,6 @@ const editConsultantSchema = z.object({
   name: z.string().min(1),
   expertise: z.string().min(1),
   description: z.string().min(1),
-  price: z.number().min(1),
   image: z.instanceof(File),
 });
 
@@ -20,7 +19,6 @@ export async function editConsultantAction(_state: unknown, formData: FormData) 
   const name = formData.get("name") as string;
   const expertise = formData.get("expertise") as string;
   const description = formData.get("description") as string;
-  const price = Number(formData.get("price"));
   const image = formData.get("image") as File | null;
 
   const validation = editConsultantSchema.safeParse({
@@ -28,7 +26,6 @@ export async function editConsultantAction(_state: unknown, formData: FormData) 
     name,
     expertise,
     description,
-    price,
     image,
   });
 
@@ -41,14 +38,13 @@ export async function editConsultantAction(_state: unknown, formData: FormData) 
         name,
         expertise,
         description,
-        price,
         image,
       },
     };
   }
 
   if (validation.data.image.name == "undefined") {
-    await ConsultantServices.updateConsultant(id, name, expertise, description, price);
+    await ConsultantServices.updateConsultant(id, name, expertise, description);
     redirect("/admin/consultant/");
   }
 
@@ -70,7 +66,7 @@ export async function editConsultantAction(_state: unknown, formData: FormData) 
 
   await S3Services.deleteFile({ folder: `pp-consultant/${id}`, key: find.image });
 
-  await ConsultantServices.updateConsultant(id, name, expertise, description, price, validation.data.image.name);
+  await ConsultantServices.updateConsultant(id, name, expertise, description, validation.data.image.name);
 
   // upload file R2
   await S3Services.uploadFile({

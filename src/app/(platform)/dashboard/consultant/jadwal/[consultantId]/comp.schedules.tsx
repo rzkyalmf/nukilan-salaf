@@ -6,6 +6,7 @@ import { Calendar } from "lucide-react";
 import React, { useActionState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { currencyFormat } from "@/libs/currency-format";
 import { formatDate, formatDay, formatTime } from "@/libs/dates-format";
 
 import { bookingAction } from "./action";
@@ -30,11 +31,12 @@ export const Schedules: React.FC<Props> = ({ schedules, userId, consultantId }) 
       <table className="my-7 w-full min-w-[640px]">
         <thead className="text-sm font-semibold tracking-normal text-gray-600 sm:text-base">
           <tr className="border-y">
-            <th className="px-4 py-3">No</th>
+            <th className="px-6 py-3">No</th>
             <th className="px-4 py-3">Hari</th>
             <th className="px-4 py-3">Tanggal</th>
             <th className="px-4 py-3">Jam</th>
             <th className="px-4 py-3">Zona Waktu</th>
+            <th className="px-4 py-3">Biaya</th>
             <th className="px-4 py-3">Status</th>
             <th className="px-4 py-3">Aksi</th>
           </tr>
@@ -53,6 +55,7 @@ export const Schedules: React.FC<Props> = ({ schedules, userId, consultantId }) 
                 <td className="whitespace-nowrap px-4 py-2">{formatDate(schedule.dateTime)}</td>
                 <td className="whitespace-nowrap px-4 py-2">{formatTime(schedule.dateTime)}</td>
                 <td className="whitespace-nowrap px-4 py-2">{schedule.timeZone}</td>
+                <td className="whitespace-nowrap px-4 py-2">{currencyFormat(schedule.price)}</td>
                 <td className="px-4 py-2">
                   <span className={isExpired ? "text-yellow-600" : schedule.userId === null ? "text-green-600" : "text-red-600"}>
                     {isExpired ? "Kadaluarsa" : schedule.userId === null ? "Tersedia" : "Terjadwalkan"}
@@ -64,6 +67,7 @@ export const Schedules: React.FC<Props> = ({ schedules, userId, consultantId }) 
                     <input name="scheduleId" value={schedule.id} hidden />
                     <input name="userId" value={userId} hidden />
                     <input name="consultantId" value={consultantId} hidden />
+                    <input type="hidden" value={schedule.price} name="amount" />
 
                     <Button
                       variant="outline"

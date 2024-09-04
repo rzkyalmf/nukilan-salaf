@@ -3,14 +3,13 @@ import { Consultant } from "@prisma/client";
 import prisma from "@/utils/prisma";
 
 export const ConsultantServices = {
-  createConsultant: async (consultant: Pick<Consultant, "name" | "expertise" | "description" | "price" | "image">) => {
+  createConsultant: async (consultant: Pick<Consultant, "name" | "expertise" | "description" | "image">) => {
     try {
       const newConsultant = await prisma.consultant.create({
         data: {
           name: consultant.name,
           expertise: consultant.expertise,
           description: consultant.description,
-          price: consultant.price,
           image: consultant.image,
         },
       });
@@ -20,7 +19,7 @@ export const ConsultantServices = {
     }
   },
 
-  updateConsultant: async (id: string, name: string, expertise: string, description: string, price: number, image?: string) => {
+  updateConsultant: async (id: string, name: string, expertise: string, description: string, image?: string) => {
     await prisma.consultant.update({
       where: {
         id,
@@ -29,7 +28,6 @@ export const ConsultantServices = {
         name,
         expertise,
         description,
-        price,
         image,
       },
     });
@@ -61,13 +59,14 @@ export const ConsultantServices = {
     return user;
   },
 
-  createSchedule: async (consultantId: string, dateTime: string, expiryDateTime: string, timeZone: string) => {
+  createSchedule: async (consultantId: string, dateTime: string, expiryDateTime: string, price: number, timeZone: string) => {
     return await prisma.schedule.create({
       data: {
         consultantId,
         dateTime,
         expiryDateTime,
         timeZone,
+        price,
       },
     });
   },

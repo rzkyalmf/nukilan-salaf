@@ -20,9 +20,9 @@ export const AddSchedule: React.FC<Props> = ({ id }) => {
   return (
     <>
       <section className="pb-1 text-center">
-          <h2 className="gradient-ns font-philosopher text-3xl font-bold tracking-tight">Tambah Jadwal Baru</h2>
-          <p className="font-light tracking-normal text-gray-500">Lengkapi data di bawah ini</p>
-        </section>
+        <h2 className="gradient-ns font-philosopher text-3xl font-bold tracking-tight">Tambah Jadwal Baru</h2>
+        <p className="font-light tracking-normal text-gray-500">Lengkapi data di bawah ini</p>
+      </section>
       <form action={formAction} className="space-y-4">
         <input name="id" value={id} type="hidden" />
         <div>
@@ -34,15 +34,19 @@ export const AddSchedule: React.FC<Props> = ({ id }) => {
           <Input type="time" name="time" className="flex items-center justify-start" />
         </div>
         <div>
+          <label className="font-normal text-gray-400">Biaya :</label>
+          <Input type="number" name="price" placeholder="Rp." className="flex items-center justify-start" min="0" step="any" />
+        </div>
+        <div>
           <label htmlFor="timeZone" className="font-normal text-gray-400">
             Zona Waktu :
           </label>
           <Select name="timeZone" defaultValue="WIB">
             <SelectTrigger className="w-full">
-              <SelectValue  placeholder="Pilih zona waktu" />
+              <SelectValue placeholder="Pilih zona waktu" />
             </SelectTrigger>
-            <SelectContent >
-              <SelectItem value="WIB" >WIB - Waktu Indonesia Barat</SelectItem>
+            <SelectContent>
+              <SelectItem value="WIB">WIB - Waktu Indonesia Barat</SelectItem>
               <SelectItem value="WITA">WITA - Waktu Indonesia Tengah</SelectItem>
               <SelectItem value="WIT">WIT - Waktu Indonesia Timur</SelectItem>
             </SelectContent>
@@ -52,11 +56,17 @@ export const AddSchedule: React.FC<Props> = ({ id }) => {
           Submit
         </Button>
 
-        {state?.status === "error" && <div className=" text-red-500 " role="alert">{state.message}</div>}
-        {state?.status === "success" && <div className=" text-green-500 " role="alert">{state.message}</div>}
+        {state?.status === "error" && (
+          <div className="text-red-500" role="alert">
+            {state.message}
+          </div>
+        )}
+        {state?.status === "success" && (
+          <div className="text-green-500" role="alert">
+            {state.message}
+          </div>
+        )}
       </form>
-
-      
 
       <div className="flex">
         <Link

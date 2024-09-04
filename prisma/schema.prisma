@@ -28,7 +28,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   verificationCode VerificationCode?
-  schedule Schedule[]
+  schedules Schedule[]
+  transactions Transaction[]
 }
 
 model VerificationCode {
@@ -46,7 +47,6 @@ model Consultant {
   name String
   expertise String
   description String
-  price Int
   image String
 
   schedules Schedule[]
@@ -59,9 +59,32 @@ model Schedule {
   expiryDateTime DateTime
   timeZone String
   isAvailable Boolean @default(true)
+  price Int
 
   consultantId String
   consultant Consultant @relation(fields: [consultantId], references: [id])
   userId String?
   user User? @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+}
+
+enum PaymentStatus {
+  PAID
+  UNPAID
+}
+
+model Transaction {
+  id String @id @default(cuid())
+  amount Int
+  paymentStatus PaymentStatus @default(UNPAID)
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  scheduleId String
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+
+  paymentLink String
+  transactionId String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

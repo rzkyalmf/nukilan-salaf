@@ -39,7 +39,6 @@ export default function Page() {
       if (state.errors?.name) return state.errors.name;
       if (state.errors?.expertise) return state.errors.expertise;
       if (state.errors?.description) return state.errors.description;
-      if (state.errors?.price) return state.errors.price;
     }
     return null;
   };
@@ -71,11 +70,6 @@ export default function Page() {
             <div>
               <label className="font-normal text-gray-400">Latar belakang :</label>
               <Textarea name="description" className="h-32" defaultValue={state?.data?.description} />
-            </div>
-
-            <div>
-              <label className="font-normal text-gray-400">Biaya :</label>
-              <Input name="price" defaultValue="" />
             </div>
 
             <div>

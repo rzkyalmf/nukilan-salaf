@@ -2,7 +2,7 @@ const formatDate = (dateTimeString: Date): string => {
   const date = new Date(dateTimeString);
   return date.toLocaleDateString("id-ID", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   });
 };

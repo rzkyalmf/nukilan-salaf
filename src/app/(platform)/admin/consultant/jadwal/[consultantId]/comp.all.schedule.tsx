@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Edit, Trash2 } from "lucide-react";
 import React from "react";
 
+import { currencyFormat } from "@/libs/currency-format";
 import { formatDate, formatDay, formatTime } from "@/libs/dates-format";
 import { ConsultantServices } from "@/services/consultant.services";
 
@@ -25,13 +26,14 @@ export const AllSchedule: React.FC<Props> = async ({ consultantId }) => {
       <table className="min-w-full bg-white">
         <thead className="border-y border-slate-200 bg-white text-sm font-semibold tracking-normal text-gray-700 sm:text-base">
           <tr>
-            <th className="px-4 py-3">No</th>
-            <th>Hari</th>
-            <th>Tanggal</th>
-            <th>Jam</th>
-            <th>Zona Waktu</th>
-            <th>Status</th>
-            <th>Aksi</th>
+            <th className="px-3 py-3">No</th>
+            <th className="px-4 py-3">Hari</th>
+            <th className="px-4 py-3">Tanggal</th>
+            <th className="px-4 py-3">Jam</th>
+            <th className="px-2 py-3">Zona Waktu</th>
+            <th className="px-6 py-3">Biaya</th>
+            <th className="px-6 py-3">Status</th>
+            <th className="px-4 py-3">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +49,7 @@ export const AllSchedule: React.FC<Props> = async ({ consultantId }) => {
                 <td>{formatDate(schedule.dateTime)}</td>
                 <td>{formatTime(schedule.dateTime)}</td>
                 <td>{schedule.timeZone}</td>
+                <td>{currencyFormat(schedule.price)}</td>
                 <td>
                   <span className={isExpired ? "text-yellow-600" : schedule.userId === null ? "text-green-600" : "text-red-600"}>
                     {isExpired ? "Kadaluarsa" : schedule.userId === null ? "Tersedia" : "Terjadwalkan"}

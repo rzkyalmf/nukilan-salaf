@@ -1,4 +1,5 @@
 "use server";
+
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
@@ -14,6 +15,7 @@ const addScheduleSchema = z.object({
   consultantId: z.string(),
   date: z.string().min(1),
   time: z.string().min(1),
+  price: z.number().min(1),
   timeZone: z.enum(["WIB", "WITA", "WIT"]),
 });
 
@@ -27,12 +29,14 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
   const consultantId = formData.get("id") as string;
   const date = formData.get("date") as string;
   const time = formData.get("time") as string;
+  const price = Number(formData.get("price"));
   const timeZone = formData.get("timeZone") as "WIB" | "WITA" | "WIT";
 
   const validation = addScheduleSchema.safeParse({
     consultantId,
     date,
     time,
+    price,
     timeZone,
   });
 
@@ -45,6 +49,7 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
         consultantId,
         date,
         time,
+        price,
         timeZone,
       },
     };
@@ -63,6 +68,7 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
         consultantId,
         date,
         time,
+        price,
         timeZone,
       },
     };
@@ -77,6 +83,7 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
   //       consultantId,
   //       date,
   //       time,
+  //       price,
   //       timeZone,
   //     },
   //   };
@@ -90,7 +97,7 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
   const expiryDateTimeString = expiryDateTime.format("YYYY-MM-DDTHH:mm:ssZ");
 
   // Simpan ke database dengan waktu lokal, informasi zona waktu, dan waktu kadaluarsa
-  const result = await ConsultantServices.createSchedule(consultantId, dateTimeString, expiryDateTimeString, timeZone);
+  const result = await ConsultantServices.createSchedule(consultantId, dateTimeString, expiryDateTimeString, price, timeZone);
   console.log("Database result:", result);
 
   revalidatePath("/admin/consultant/jadwal/[consultantId]", "page");

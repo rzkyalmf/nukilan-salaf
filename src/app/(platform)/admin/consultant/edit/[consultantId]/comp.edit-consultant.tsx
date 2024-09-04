@@ -17,13 +17,12 @@ interface Props {
   name: string | undefined;
   expertise: string | undefined;
   description: string | undefined;
-  price: number | undefined;
   image: string | undefined;
 }
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
-export const EditConsultant: React.FC<Props> = ({ id, name, expertise, description, price, image }) => {
+export const EditConsultant: React.FC<Props> = ({ id, name, expertise, description, image }) => {
   const [preview, setPreview] = useState("");
   const [fileError, setFileError] = useState<string | null>(null);
   const [state, formAction, pending] = useActionState(editConsultantAction, null);
@@ -64,10 +63,6 @@ export const EditConsultant: React.FC<Props> = ({ id, name, expertise, descripti
           <div>
             <label className="font-normal text-gray-400">Deskripsi :</label>
             <Textarea name="description" defaultValue={description} className="h-32" />
-          </div>
-          <div>
-            <label className="font-normal text-gray-400">Biaya :</label>
-            <Input name="price" defaultValue={price?.toString()} type="number" />
           </div>
           <div>
             <label className="font-normal text-gray-400">Foto Profil :</label>
