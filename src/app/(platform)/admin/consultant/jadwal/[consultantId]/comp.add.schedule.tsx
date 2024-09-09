@@ -35,7 +35,7 @@ export const AddSchedule: React.FC<Props> = ({ id }) => {
         </div>
         <div>
           <label className="font-normal text-gray-400">Biaya :</label>
-          <Input type="number" name="price" placeholder="Rp." className="flex items-center justify-start" min="0" step="any" />
+          <Input type="number" name="price" placeholder="Rp." className="flex items-center justify-start" min="0" />
         </div>
         <div>
           <label htmlFor="timeZone" className="font-normal text-gray-400">

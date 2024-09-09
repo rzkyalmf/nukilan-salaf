@@ -47,4 +47,15 @@ export const TransactionServices = {
 
     return transaction;
   },
+
+  freeTransaction: async (scheduleId: string, userId: string, amount: number) => {
+    await prisma.transaction.create({
+      data: {
+        scheduleId: scheduleId,
+        userId: userId,
+        amount,
+        paymentStatus: "PAID",
+      },
+    });
+  },
 };

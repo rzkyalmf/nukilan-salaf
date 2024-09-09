@@ -15,7 +15,7 @@ const addScheduleSchema = z.object({
   consultantId: z.string(),
   date: z.string().min(1),
   time: z.string().min(1),
-  price: z.number().min(1),
+  price: z.number(),
   timeZone: z.enum(["WIB", "WITA", "WIT"]),
 });
 
@@ -75,19 +75,19 @@ export async function addScheduleAction(_state: unknown, formData: FormData) {
   }
 
   // Cek apakah waktu yang diinputkan kurang dari 2 hari dari sekarang
-  // if (localDateTime.diff(now, "day") < 2) {
-  //   return {
-  //     status: "error",
-  //     message: "Tidak dapat membuat jadwal kurang dari 2 hari dari sekarang.",
-  //     data: {
-  //       consultantId,
-  //       date,
-  //       time,
-  //       price,
-  //       timeZone,
-  //     },
-  //   };
-  // }
+  if (localDateTime.diff(now, "day") < 2) {
+    return {
+      status: "error",
+      message: "Tidak dapat membuat jadwal kurang dari 2 hari dari sekarang.",
+      data: {
+        consultantId,
+        date,
+        time,
+        price,
+        timeZone,
+      },
+    };
+  }
 
   // Hitung waktu kadaluarsa (1 hari sebelum jadwal)
   const expiryDateTime = localDateTime.subtract(1, "day");

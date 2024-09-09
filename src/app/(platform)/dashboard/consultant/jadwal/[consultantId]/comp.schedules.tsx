@@ -55,7 +55,7 @@ export const Schedules: React.FC<Props> = ({ schedules, userId, consultantId }) 
                 <td className="whitespace-nowrap px-4 py-2">{formatDate(schedule.dateTime)}</td>
                 <td className="whitespace-nowrap px-4 py-2">{formatTime(schedule.dateTime)}</td>
                 <td className="whitespace-nowrap px-4 py-2">{schedule.timeZone}</td>
-                <td className="whitespace-nowrap px-4 py-2">{currencyFormat(schedule.price)}</td>
+                <td className="whitespace-nowrap px-4 py-2">{currencyFormat(schedule.price >= 500 ? schedule.price : 0)}</td>
                 <td className="px-4 py-2">
                   <span className={isExpired ? "text-yellow-600" : schedule.userId === null ? "text-green-600" : "text-red-600"}>
                     {isExpired ? "Kadaluarsa" : schedule.userId === null ? "Tersedia" : "Terjadwalkan"}

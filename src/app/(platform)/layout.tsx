@@ -21,14 +21,13 @@ export default function Layout({ children }: React.PropsWithChildren) {
   const platformMenuItems = [
     { label: "Dashboard", href: "/dashboard", iconName: "House" },
     { label: "Konsultasi", href: "/dashboard/consultant", iconName: "MessagesSquare" },
-    { label: "Jadwal", href: "/dashboard/jadwal", iconName: "CalendarDays" },
+    { label: "Konten", href: "/dashboard/content", iconName: "SquarePen" },
   ];
 
   const adminMenuItems = [
     { label: "Edit Consultant", href: "/admin/consultant", iconName: "UserRoundCog" },
     { label: "Users", href: "/admin/users", iconName: "CircleUserRound" },
     { label: "Analytics", href: "/admin/analytics", iconName: "ChartNoAxesCombined" },
-    { label: "Konten", href: "/admin/content", iconName: "SquarePen" },
   ];
 
   const SidebarContent = () => (

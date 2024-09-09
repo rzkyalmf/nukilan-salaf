@@ -1,6 +1,6 @@
 "use server";
 
-// import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -20,7 +20,7 @@ export async function bookingAction(_state: unknown, formData: FormData) {
   const consultantId = formData.get("consultantId") as string;
   const amount = formData.get("amount") as string;
 
-  console.log({ scheduleId, userId, consultantId });
+  console.log({ scheduleId, userId, consultantId, amount });
 
   const validation = bookingSchema.safeParse({
     scheduleId,
@@ -44,14 +44,25 @@ export async function bookingAction(_state: unknown, formData: FormData) {
 
   const Schedule = await ConsultantServices.findSchedule(scheduleId);
 
-  if (!Schedule || Schedule.userId === userId || Schedule.expiryDateTime < new Date()) {
+  if (!Schedule || Schedule.userId === userId || Schedule.expiryDateTime < new Date() || Number(amount) !== Schedule.price) {
     console.log("schedule not found or already expired");
     redirect("/dashboard/consultant/");
   }
 
+  if (Schedule.price <= 499) {
+    await TransactionServices.freeTransaction(scheduleId, userId, Number(amount));
+
+    // update schedule
+    await ConsultantServices.updateSchedule(scheduleId, userId);
+    revalidatePath(`/dashboard/consultant/jadwal/${consultantId}`, "page");
+    return;
+  }
+
   const data = await TransactionServices.createTransaction(scheduleId, userId, consultantId, Number(amount));
 
-  redirect(data.paymentLink);
+  if (!data.paymentLink) {
+    throw new Error("Payment Gateway not found");
+  }
 
-  // revalidatePath(`/dashboard/consultant/jadwal/${consultantId}`, "page");
+  redirect(data.paymentLink);
 }

@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
     await ConsultantServices.updateSchedule(updatedTransaction.scheduleId, updatedTransaction.userId);
 
     // create certificate Placeholder
-
     console.log("Transaction API has been hitted");
   }
 
