@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { generateVerificationCode } from "@/libs/generate-verification-code";
-// import { EmailServices } from "@/services/email.services";
+import { EmailServices } from "@/services/email.services";
 import { UserServices } from "@/services/user.services";
 
 const contentSchema = z.object({
@@ -55,7 +55,7 @@ export async function newCodeAction(state: unknown, formData: FormData) {
     const generateCode = generateVerificationCode();
 
     await UserServices.updateCode(userId, generateCode, now);
-    // await EmailServices.sendVerificationCode(userId, verificationCode);
+    await EmailServices.sendVerificationCode(userId, generateCode);
 
     return {
       status: "success",
