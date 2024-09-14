@@ -13,7 +13,7 @@ export const EmailServices = {
         subject: "Verifikasi Akun Nukilan Salaf!",
         html: `
           <p>Kode OTP : <b>${code}</b></p>
-          <p>Link Verifikasi Akun : <a href="http://localhost:3000/verify/${userId}">Klik Disini!</a></p>
+          <p>Link Verifikasi Akun : <a href="https://nukilan-salaf.vercel.app/verify/${userId}">Klik Disini!</a></p>
           `,
       });
 
@@ -31,7 +31,7 @@ export const EmailServices = {
         subject: "Lupa Password Akun Nukilan Salaf!",
         html: `
           <p>Kode OTP : <b>${code}</b></p>
-          <p>Link Lupa Password : <a href="http://localhost:3000/change-password/verify/${userId}">Klik Disini!</a></p>
+          <p>Link Lupa Password : <a href="https://nukilan-salaf.vercel.app/change-password/verify/${userId}">Klik Disini!</a></p>
           `,
       });
 
