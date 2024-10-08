@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       path: "/",
     });
 
-    return redirect("/my-courses");
+    return redirect("/dashboard");
   }
 
   // create Token
@@ -64,6 +64,7 @@ export async function GET(req: NextRequest) {
     id: findUser.id,
     name: findUser.name,
     email: findUser.email,
+    role: findUser.role,
     avatarUrl: findUser.avatarUrl,
   };
 

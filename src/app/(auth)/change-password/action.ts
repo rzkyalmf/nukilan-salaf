@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import z from "zod";
 
 import { generateVerificationCode } from "@/libs/generate-verification-code";
-// import { EmailServices } from "@/services/email.services";
+import { EmailServices } from "@/services/email.services";
 import { UserServices } from "@/services/user.services";
 
 const resetSchema = z.object({
@@ -61,7 +61,7 @@ export async function resetAction(state: unknown, formData: FormData) {
   const verificationCode = generateVerificationCode();
   const now = new Date().getTime();
   await UserServices.updateCode(user.id, verificationCode, now);
-  // await EmailServices.sendVerificationPass(user.id, verificationCode);
+  await EmailServices.sendVerificationPass(user.id, verificationCode);
 
   redirect(`/change-password/verify/${user.id}`);
 }
